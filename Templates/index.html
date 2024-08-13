@@ -1,11 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css" integrity="sha512-drnvWxqfgcU6sLzAJttJv7LKdjWn0nxWCSbEAtxJ/YYaZMyoNLovG7lPqZRdhgL1gAUfa+V7tbin8y+2llC1cw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <title>Carteira de Investimento</title>
 </head>
 <body>
-    <h1>Um teste</h1>
+    <header>
+        <nav id="main-navbar" class="navbar navbar-expand-lg">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+            </ul>
+            <div class="collapse navbar-collapse" id="navbarNav"></div>
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+                <span class="logo-text">Carteira de Investimento</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+    <section class="section-menu" id="section-projeto">
+        <div class="container">
+            <div class="row mb-4 align-items-center">
+                <div class="col-lg-6 pr-lg-5 mb-5 mb-lg-0">
+                    <img src="{{ url_for('static', filename='img/guru-telas.png') }}" alt="Imagem de fundo" class="img-fluid left">
+                </div>
+                <div class="col-md-6 pl-md-12">
+                    <div class="section-heading">
+                        <h2 class="page-title">Agora Você pode consolidar a sua carteira em um só lugar</h2>
+                    </div>
+                    <p class="page-text">Organize sua carteira de investimentos de forma simples e eficiente! Com nosso sistema, você pode mapear e gerenciar todos os tipos de ativos em um único lugar. Esqueça o trabalho manual de calcular a fração de cada ativo na sua carteira — nossa plataforma faz isso automaticamente para você, permitindo que você tenha uma visão clara e detalhada dos seus investimentos. Descubra como nossas funcionalidades podem simplificar sua vida e otimizar sua estratégia de investimentos. Não perca tempo, experimente agora!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-box">
+        <div class="box-info">
+            <div class="box-info-single" id="rentabilidade">
+                <div class="info-text">
+                    <h3 class="page-title">RENTABILIDADE</h3>
+                    <hr>
+                    <p class="page-text">Descubra a rentabilidade geral da sua carteira de forma automática, assim como a rentabilidade individual de cada ativo. Nossa ferramenta facilita a análise detalhada, permitindo que você acompanhe o desempenho de seus investimentos com precisão e sem esforço.</p>
+                </div>
+                <i class="fa-solid fa-money-check-dollar"></i>
+            </div>
+            <div class="box-info-single" id="dividendos">
+                <div class="info-text">
+                    <h3 class="page-title">DIVIDENDOS</h3>
+                    <hr>
+                    <p class="page-text">Adicione os dividendos recebidos de cada ativo e compare-os mês a mês ao longo de cada ano. Além disso, acompanhe o total acumulado de dividendos de um único ativo, facilitando a análise detalhada e o planejamento financeiro. Dessa forma, você poderá monitorar a evolução dos dividendos ao longo do tempo.</p>
+                </div>
+            </div>
+            <div class="box-info-single" id="graficos">
+                <div class="info-text">
+                    <h3 class="page-title">GRÁFICOS</h3>
+                    <hr>
+                    <p class="page-text">Acompanhe os detalhes da sua carteira com nosso gráfico interativo. Nele, você pode conferir a porcentagem que cada tipo de ativo representa na sua carteira e visualizar o valor total correspondente a essa porcentagem, oferecendo uma visão clara e detalhada da composição dos seus investimentos.</p>
+                </div>
+            </div>
+            <div class="box-info-single" id="preco-teto">
+                <div class="info-text">
+                    <h3 class="page-title">PREÇO TETO</h3>
+                    <hr>
+                    <p class="page-text">Aqui você também pode acompanhar o preço teto de cada ação utilizando o método de Décio Bazin. Com este método, você consegue avaliar se uma ação está valorizada ou desvalorizada com base em seus indicadores. Lembre-se de que as informações não constituem uma recomendação de compra ou venda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-chart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-container">
+                    <h3 class="page-title">Detalhes do Gráfico</h3>
+                    <p class="page-text">Este gráfico de pizza ilustra um exemplo detalhado de como é a distribuição de uma carteira de investimentos após a adição de todos os ativos de forma consolidada. Nele, você pode visualizar a porcentagem correspondente a cada ativo, o que proporciona uma visão clara e objetiva da composição da carteira. Essa visualização é extremamente útil para auxiliar na manutenção contínua da carteira, permitindo ajustes precisos que se alinhem à sua estratégia de investimento. É importante destacar que este gráfico serve apenas como uma demonstração; os ativos incluídos e as respectivas posições representadas não devem ser considerados para decisões de investimento reais. Estes ativos foram selecionados exclusivamente para fins de exemplificação prática, ajudando a ilustrar como uma carteira pode ser distribuída em termos de alocação de ativos.</p>
+                </div>
+                <div class="col-md-6 chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-dividendos">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="col-md-6 text-container">
+                    <h3 class="page-title">Dividendos Recebidos</h3>
+                    <p class="page-text">
+                        Este gráfico exibe os dividendos recebidos para cada ativo presente na sua carteira de investimentos. Os valores podem variar conforme o desempenho e a política de dividendos de cada empresa. Isso permite monitorar e comparar a rentabilidade dos diferentes ativos, facilitando decisões sobre reinvestimento ou ajustes na carteira. É importante ressaltar que este gráfico serve apenas como uma demonstração; os ativos e as posições representadas são exemplos e não devem ser considerados para decisões de investimento reais. Estes exemplos e valores são meramente ilustrativos e não constituem uma recomendação de compra ou venda.
+
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Inclusão dos scripts do Chart.js e do plugin datalabels -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <!-- Inicialização dos gráficos -->
+    <script>
+        var barCtx = document.getElementById('barChart').getContext('2d');
+        var myBarChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['MXRF11', 'TAEE11', 'TRPL4', 'SNAG11', 'VINO11', 'KISU11', 'VISC11', 'CPLE6', 'BBAS3'],
+                datasets: [{
+                    label: 'Dividendos Recebidos (R$)',
+                    data: [10, 20, 17, 10, 9, 8, 14, 20, 18.80],
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#F7464A',
+                        '#8E5EA2',
+                        '#3F51B5',
+                        '#00C853',
+                        '#FF5722'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: (value) => {
+                            return 'R$ ' + value.toFixed(2);
+                        }
+                    }
+                }
+            }
+        });
+
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['MXRF11', 'TAEE11', 'TRPL4', 'SNAG11', 'VINO11', 'KISU11', 'VISC11', 'CPLE6', 'BBAS3'],
+                datasets: [{
+                    label: 'Distribuição dos Ativos',
+                    data: [500, 500, 500, 500, 500, 500, 500, 500, 500],
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#F7464A',
+                        '#8E5EA2',
+                        '#3F51B5',
+                        '#00C853',
+                        '#FF5722'
+                    ]
+                }]
+            },
+            options: {
+                plugins: {
+                    datalabels: {
+                        color: '#fff',
+                        display: function(context) {
+                            return context.dataset.data[context.dataIndex] > 0; // Exibe apenas os rótulos dos segmentos com valor maior que 0
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 10
+                        },
+                        formatter: (value, ctx) => {
+                            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(2) + "%";
+                            return ctx.chart.data.labels[ctx.dataIndex] + "\n" + percentage;
+                        },
+                        textAlign: 'center',
+                        textStrokeWidth: 2,
+                        textStrokeColor: '#000'
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 10,
+                        bottom: 10,
+                        left: 10,
+                        right: 10
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

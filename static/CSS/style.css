@@ -1,0 +1,140 @@
+:root {
+    --cor1: #6abb59; /* Exemplo de cor 1 */
+    --cor2: #028001; /* Exemplo de cor 2 */
+    --cor3: #fed725FF; /* Exemplo de cor 3 */
+    --cor4: #d3d3d369; /* Exemplo de cor 4 */
+    --cor5: #000000e5; /* Exemplo de cor 5 */
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.logo {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+
+header {
+    color: var(--cor4);
+    font-size: 20px;
+    background-color: var(--cor5);
+    font-weight: bolder;
+    text-transform: uppercase; 
+    
+    
+}
+.navbar {
+    max-width: 1140px;
+    margin: auto;
+    padding: 10px 20px;
+}
+
+header a {
+    color: var(--cor4);
+    text-decoration: none;
+}
+
+header a:hover {
+    color: var(--cor3);
+    transition: .5s;
+}
+
+.section-menu, .section-chart, .section-dividendos {
+    background-color: var(--cor4);
+}
+
+.section-menu .page-title {
+    color: var(--cor2);
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.box-info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.box-info-single {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 15%;
+    padding: 20px;
+    color: black;
+    text-align: center;
+    flex-direction: column;
+}
+
+.box-info-single svg {
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+.box-info-single hr {
+    border: none;
+    border-top: 2px solid var(--cor2);
+    margin: 20px 0;
+}
+
+.box-info-single .page-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--cor2);
+    margin-bottom: 10px;
+}
+
+#rentabilidade, #dividendos, #graficos, #preco-teto {
+    background-color: var(--cor3);
+    border: 1px solid var(--cor3);
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.section-chart {
+    padding: 2rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+}
+.chart-container {
+    position: relative;
+    height: 400px; /* Ajuste conforme necessário */
+}
+
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.text-container .page-title {
+    margin-bottom: 1rem;
+    color: var(--cor2);
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.text-container .page-text {
+    font-size: 1rem;
+    color: black;
+    text-align: justify;
+}
