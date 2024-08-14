@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css" integrity="sha512-drnvWxqfgcU6sLzAJttJv7LKdjWn0nxWCSbEAtxJ/YYaZMyoNLovG7lPqZRdhgL1gAUfa+V7tbin8y+2llC1cw==" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css"
+        integrity="sha512-drnvWxqfgcU6sLzAJttJv7LKdjWn0nxWCSbEAtxJ/YYaZMyoNLovG7lPqZRdhgL1gAUfa+V7tbin8y+2llC1cw=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    <!--Teste abaixo-->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+    <link rel="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js">
+    </script>
+
+
     <title>Carteira de Investimento</title>
 </head>
+
 <body>
     <header>
         <nav id="main-navbar" class="navbar navbar-expand-lg">
@@ -24,33 +46,94 @@
                 <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
                 <span class="logo-text">Carteira de Investimento</span>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
     </header>
+    <section class="section-motivos">
+        <div class="container">
+            <div class="row mb-4 align-items-center">
+                <div class="col-lg-6 pr-lg-5 mb-5 mb-lg-0">
+                    <img src="{{ url_for('static', filename='img/testando.webp') }}" alt="Imagem de fundo"
+                        class="img-left ">
+                </div>
+                <div class="col-md-6 pl-md-12">
+                    <div class="section-heading">
+                        <h2 class="page-title">Por que investir ?</h2>
+                    </div>                   
+                    <p class="page-text">Investir é mais do que apenas alocar dinheiro em diferentes ativos; é um caminho para transformar a maneira como você lida com suas finanças e a vida em geral. Ao começar a investir, você começa a olhar para o seu dinheiro de forma mais estratégica, desenvolvendo uma visão mais ampla sobre como usá-lo para alcançar seus objetivos financeiros. Um dos principais benefícios é o potencial de multiplicar seu patrimônio. Investir permite que seu dinheiro trabalhe para você, aproveitando o poder dos juros compostos e o crescimento dos mercados. Além disso, ao aprender sobre educação financeira, você adquire conhecimentos valiosos que ajudam a economizar mais efetivamente e a tomar decisões financeiras mais informadas. Investir também traz uma perspectiva mais positiva sobre o futuro. Com uma estratégia de investimentos sólida, você pode alcançar maior segurança financeira e estar mais preparado para enfrentar imprevistos. O processo de investimento promove o desenvolvimento de hábitos financeiros saudáveis e a busca contínua por oportunidades, incentivando um crescimento pessoal e profissional constante.</p>
+                </div>
+            </div>
+        </div>
+        <section class="section-box">
+            <div class="box-info">
+                <div class="box-info-single" id="tempo">
+                    <div class="info-text">
+                        <h3 class="page-title">TEMPO</h3>
+                        <hr>
+                        <p class="page-text">Ao investir, é fundamental entender que o tempo é o nosso maior aliado. Quando você utiliza a estratégia certa e adota um pensamento de longo prazo, é quase certo que obterá um retorno significativo. Com o passar do tempo, o efeito bola de neve se intensifica, resultando em um crescimento exponencial do seu investimento e gerando uma fonte de renda extra para você.</p>
+                    </div>
+                    <i class="fa-solid fa-money-check-dollar"></i>
+                </div>
+                <div class="box-info-single" id="controle">
+                    <div class="info-text">
+                        <h3 class="page-title">CONTROLER</h3>
+                        <hr>
+                        <p class="page-text">Quando você investir, assume o controle da sua vida financeira. Ao se envolver com a educação financeira, você ganha maior controle sobre seus gastos, deixando de gastar dinheiro em despesas desnecessárias e direcionando-o para investimentos que podem gerar mais retorno. Esse controle não só permite uma gestão mais eficiente do seu dinheiro, mas também ajuda a construir um futuro financeiro promissor.</p>
+                    </div>
+                </div>
+                <div class="box-info-single" id="aposentadoria">
+                    <div class="info-text">
+                        <h3 class="page-title">APOSENTADORIA</h3>
+                        <hr>
+                        <p class="page-text">Quando você começa a investir, inicia o que chamamos de "pé de meia", que é juntar dinheiro para um objetivo futuro. Esse dinheiro guardado, quando investido utilizando os métodos certos, pode se transformar em uma fonte de renda extra na aposentadoria. Assim, ao investir com planejamento, você constrói um patrimônio que pode proporcionar maior segurança e conforto na sua aposentadoria.</p>
+                    </div>
+                </div>
+                <div class="box-info-single" id="comprovado">
+                    <div class="info-text">
+                        <h3 class="page-title">COMPROVAÇÃO</h3>
+                        <hr>
+                        <p class="page-text">Com o conhecimento certo e a estratégia adequada, aliado ao tempo, você pode comprovar que, no longo prazo, ganha essa "partida". Um dos principais fatores para o sucesso dos juros compostos, ou efeito bola de neve, é justamente o tempo. A comprovação desse efeito é visível à medida que seus investimentos crescem e se multiplicam ao longo dos anos.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
     <section class="section-menu" id="section-projeto">
         <div class="container">
             <div class="row mb-4 align-items-center">
                 <div class="col-lg-6 pr-lg-5 mb-5 mb-lg-0">
-                    <img src="{{ url_for('static', filename='img/guru-telas.png') }}" alt="Imagem de fundo" class="img-fluid left">
+                    <img src="{{ url_for('static', filename='img/guru-telas.png') }}" alt="Imagem de fundo"
+                        class="img-fluid left">
                 </div>
                 <div class="col-md-6 pl-md-12">
                     <div class="section-heading">
                         <h2 class="page-title">Agora Você pode consolidar a sua carteira em um só lugar</h2>
                     </div>
-                    <p class="page-text">Organize sua carteira de investimentos de forma simples e eficiente! Com nosso sistema, você pode mapear e gerenciar todos os tipos de ativos em um único lugar. Esqueça o trabalho manual de calcular a fração de cada ativo na sua carteira — nossa plataforma faz isso automaticamente para você, permitindo que você tenha uma visão clara e detalhada dos seus investimentos. Descubra como nossas funcionalidades podem simplificar sua vida e otimizar sua estratégia de investimentos. Não perca tempo, experimente agora!</p>
+                    <p class="page-text">Organize sua carteira de investimentos de forma simples e eficiente! Com nosso
+                        sistema, você pode mapear e gerenciar todos os tipos de ativos em um único lugar. Esqueça o
+                        trabalho manual de calcular a fração de cada ativo na sua carteira — nossa plataforma faz isso
+                        automaticamente para você, permitindo que você tenha uma visão clara e detalhada dos seus
+                        investimentos. Descubra como nossas funcionalidades podem simplificar sua vida e otimizar sua
+                        estratégia de investimentos. Não perca tempo, experimente agora!</p>
                 </div>
             </div>
         </div>
     </section>
+
     <section class="section-box">
         <div class="box-info">
             <div class="box-info-single" id="rentabilidade">
                 <div class="info-text">
                     <h3 class="page-title">RENTABILIDADE</h3>
                     <hr>
-                    <p class="page-text">Descubra a rentabilidade geral da sua carteira de forma automática, assim como a rentabilidade individual de cada ativo. Nossa ferramenta facilita a análise detalhada, permitindo que você acompanhe o desempenho de seus investimentos com precisão e sem esforço.</p>
+                    <p class="page-text">Descubra a rentabilidade geral da sua carteira de forma automática, assim como
+                        a rentabilidade individual de cada ativo. Nossa ferramenta facilita a análise detalhada,
+                        permitindo que você acompanhe o desempenho de seus investimentos com precisão e sem esforço.</p>
                 </div>
                 <i class="fa-solid fa-money-check-dollar"></i>
             </div>
@@ -58,21 +141,30 @@
                 <div class="info-text">
                     <h3 class="page-title">DIVIDENDOS</h3>
                     <hr>
-                    <p class="page-text">Adicione os dividendos recebidos de cada ativo e compare-os mês a mês ao longo de cada ano. Além disso, acompanhe o total acumulado de dividendos de um único ativo, facilitando a análise detalhada e o planejamento financeiro. Dessa forma, você poderá monitorar a evolução dos dividendos ao longo do tempo.</p>
+                    <p class="page-text">Adicione os dividendos recebidos de cada ativo e compare-os mês a mês ao longo
+                        de cada ano. Além disso, acompanhe o total acumulado de dividendos de um único ativo,
+                        facilitando a análise detalhada e o planejamento financeiro. Dessa forma, você poderá monitorar
+                        a evolução dos dividendos ao longo do tempo.</p>
                 </div>
             </div>
             <div class="box-info-single" id="graficos">
                 <div class="info-text">
                     <h3 class="page-title">GRÁFICOS</h3>
                     <hr>
-                    <p class="page-text">Acompanhe os detalhes da sua carteira com nosso gráfico interativo. Nele, você pode conferir a porcentagem que cada tipo de ativo representa na sua carteira e visualizar o valor total correspondente a essa porcentagem, oferecendo uma visão clara e detalhada da composição dos seus investimentos.</p>
+                    <p class="page-text">Acompanhe os detalhes da sua carteira com nosso gráfico interativo. Nele, você
+                        pode conferir a porcentagem que cada tipo de ativo representa na sua carteira e visualizar o
+                        valor total correspondente a essa porcentagem, oferecendo uma visão clara e detalhada da
+                        composição dos seus investimentos.</p>
                 </div>
             </div>
             <div class="box-info-single" id="preco-teto">
                 <div class="info-text">
                     <h3 class="page-title">PREÇO TETO</h3>
                     <hr>
-                    <p class="page-text">Aqui você também pode acompanhar o preço teto de cada ação utilizando o método de Décio Bazin. Com este método, você consegue avaliar se uma ação está valorizada ou desvalorizada com base em seus indicadores. Lembre-se de que as informações não constituem uma recomendação de compra ou venda.</p>
+                    <p class="page-text">Aqui você também pode acompanhar o preço teto de cada ação utilizando o método
+                        de Décio Bazin. Com este método, você consegue avaliar se uma ação está valorizada ou
+                        desvalorizada com base em seus indicadores. Lembre-se de que as informações não constituem uma
+                        recomendação de compra ou venda.</p>
                 </div>
             </div>
         </div>
@@ -82,7 +174,16 @@
             <div class="row">
                 <div class="col-md-6 text-container">
                     <h3 class="page-title">Detalhes do Gráfico</h3>
-                    <p class="page-text">Este gráfico de pizza ilustra um exemplo detalhado de como é a distribuição de uma carteira de investimentos após a adição de todos os ativos de forma consolidada. Nele, você pode visualizar a porcentagem correspondente a cada ativo, o que proporciona uma visão clara e objetiva da composição da carteira. Essa visualização é extremamente útil para auxiliar na manutenção contínua da carteira, permitindo ajustes precisos que se alinhem à sua estratégia de investimento. É importante destacar que este gráfico serve apenas como uma demonstração; os ativos incluídos e as respectivas posições representadas não devem ser considerados para decisões de investimento reais. Estes ativos foram selecionados exclusivamente para fins de exemplificação prática, ajudando a ilustrar como uma carteira pode ser distribuída em termos de alocação de ativos.</p>
+                    <p class="page-text">Este gráfico de pizza ilustra um exemplo detalhado de como é a distribuição de
+                        uma carteira de investimentos após a adição de todos os ativos de forma consolidada. Nele, você
+                        pode visualizar a porcentagem correspondente a cada ativo, o que proporciona uma visão clara e
+                        objetiva da composição da carteira. Essa visualização é extremamente útil para auxiliar na
+                        manutenção contínua da carteira, permitindo ajustes precisos que se alinhem à sua estratégia de
+                        investimento. É importante destacar que este gráfico serve apenas como uma demonstração; os
+                        ativos incluídos e as respectivas posições representadas não devem ser considerados para
+                        decisões de investimento reais. Estes ativos foram selecionados exclusivamente para fins de
+                        exemplificação prática, ajudando a ilustrar como uma carteira pode ser distribuída em termos de
+                        alocação de ativos.</p>
                 </div>
                 <div class="col-md-6 chart-container">
                     <canvas id="pieChart"></canvas>
@@ -99,7 +200,13 @@
                 <div class="col-md-6 text-container">
                     <h3 class="page-title">Dividendos Recebidos</h3>
                     <p class="page-text">
-                        Este gráfico exibe os dividendos recebidos para cada ativo presente na sua carteira de investimentos. Os valores podem variar conforme o desempenho e a política de dividendos de cada empresa. Isso permite monitorar e comparar a rentabilidade dos diferentes ativos, facilitando decisões sobre reinvestimento ou ajustes na carteira. É importante ressaltar que este gráfico serve apenas como uma demonstração; os ativos e as posições representadas são exemplos e não devem ser considerados para decisões de investimento reais. Estes exemplos e valores são meramente ilustrativos e não constituem uma recomendação de compra ou venda.
+                        Este gráfico exibe os dividendos recebidos para cada ativo presente na sua carteira de
+                        investimentos. Os valores podem variar conforme o desempenho e a política de dividendos de cada
+                        empresa. Isso permite monitorar e comparar a rentabilidade dos diferentes ativos, facilitando
+                        decisões sobre reinvestimento ou ajustes na carteira. É importante ressaltar que este gráfico
+                        serve apenas como uma demonstração; os ativos e as posições representadas são exemplos e não
+                        devem ser considerados para decisões de investimento reais. Estes exemplos e valores são
+                        meramente ilustrativos e não constituem uma recomendação de compra ou venda.
 
 
                     </p>
@@ -107,6 +214,30 @@
             </div>
         </div>
     </section>
+    <section class="section-donut">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-container">
+                    <h3 class="page-title">Detalhes do Gráfico</h3>
+                    <p class="page-text">Este gráfico de pizza ilustra um exemplo detalhado de como é a distribuição de
+                        uma carteira de investimentos após a adição de todos os ativos de forma consolidada. Nele, você
+                        pode visualizar a porcentagem correspondente a cada ativo, o que proporciona uma visão clara e
+                        objetiva da composição da carteira. Essa visualização é extremamente útil para auxiliar na
+                        manutenção contínua da carteira, permitindo ajustes precisos que se alinhem à sua estratégia de
+                        investimento. É importante destacar que este gráfico serve apenas como uma demonstração; os
+                        ativos incluídos e as respectivas posições representadas não devem ser considerados para
+                        decisões de investimento reais. Estes ativos foram selecionados exclusivamente para fins de
+                        exemplificação prática, ajudando a ilustrar como uma carteira pode ser distribuída em termos de
+                        alocação de ativos.</p>
+                </div>
+                <div class="col-md-6 chart-container">
+                    
+                    <div id="donut-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     
     <!-- Inclusão dos scripts do Chart.js e do plugin datalabels -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -114,6 +245,36 @@
 
     <!-- Inicialização dos gráficos -->
     <script>
+        var chart = bb.generate({
+        data: {
+          columns: [
+            ["MXRF11", 500],
+            ["TAEE11", 500],
+            ["TRPL4", 500],
+            ["SNAG11", 500],
+            ["VINO11", 500],
+            ["KISU11", 500],
+            ["VISC11", 500],
+            ["CPLE6", 500],
+            ["BBAS3", 500],
+            
+          ],
+          type: "donut",
+          onclick: function (d, i) {
+            console.log("onclick", d, i);
+          },
+          onover: function (d, i) {
+            console.log("onover", d, i);
+          },
+          onout: function (d, i) {
+            console.log("onout", d, i);
+          },
+        },
+        donut: {
+          title: "100",
+        },
+        bindto: "#donut-chart",
+      });
         var barCtx = document.getElementById('barChart').getContext('2d');
         var myBarChart = new Chart(barCtx, {
             type: 'bar',
@@ -159,6 +320,8 @@
             }
         });
 
+
+
         var ctx = document.getElementById('pieChart').getContext('2d');
         var myPieChart = new Chart(ctx, {
             type: 'pie',
@@ -184,7 +347,7 @@
                 plugins: {
                     datalabels: {
                         color: '#fff',
-                        display: function(context) {
+                        display: function (context) {
                             return context.dataset.data[context.dataIndex] > 0; // Exibe apenas os rótulos dos segmentos com valor maior que 0
                         },
                         font: {
@@ -215,4 +378,5 @@
         });
     </script>
 </body>
+
 </html>

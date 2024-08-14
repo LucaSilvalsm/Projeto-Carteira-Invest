@@ -33,3 +33,6 @@ O projeto tem a sua funcionalidades para apresentar:
 - `FLASK` - Framework utilizado para contruir a aplicação 
 - `PANDAS` - Biblioteca para manipulação e análise de dados.
 - `SQLALCHEMY` - Biblioteca para mapeamento objeto-relacional com banco de dados
+
+##
+### BIBLIOTECA E FRAMEWORK PYTHON USADA NO PROJETO
