@@ -18,3 +18,11 @@ Session = sessionmaker(bind=engine)
 def index():
    
     return render_template("index.html")
+
+@page_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template("login.html")
+
+@page_bp.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
+    return render_template("cadastro.html")

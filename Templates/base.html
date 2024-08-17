@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css"
+        integrity="sha512-drnvWxqfgcU6sLzAJttJv7LKdjWn0nxWCSbEAtxJ/YYaZMyoNLovG7lPqZRdhgL1gAUfa+V7tbin8y+2llC1cw=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    {% block styles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+
+
+
+    <!--Teste abaixo-->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+    <link rel="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js">
+    </script>
+
+
+
+    <title>{% block title %}Carteira de Investimento {% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <nav id="main-navbar" class="navbar navbar-expand-lg">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+            </ul>
+            <div class="collapse navbar-collapse" id="navbarNav"></div>
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+                <span class="logo-text">Carteira de Investimento</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+    <div class=""> <!-- Use 'container' ou 'container-fluid' conforme o layout desejado -->
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.js"
+        integrity="sha512-KCgUnRzizZDFYoNEYmnqlo0PRE6rQkek9dE/oyIiCExStQ72O7GwIFfmPdkzk4OvZ/sbHKSLVeR4Gl3s7s679g=="
+        crossorigin="anonymous"></script>
+
+    <footer class="rodape" id="contato">
+        <div class="rodape-div">
+
+            <div class="rodape-div-1">
+                <div class="rodape-div-1-coluna elementoFooter">
+                    <!-- elemento -->
+                    <span>
+                        <h3 class="title-footer">Endereço</h3>
+                    </span>
+                    <p>Cidade: Duque de Caxias </p>
+                    <p>Estado: Rio de Janeiro-RJ</p>
+                </div>
+            </div>
+
+            <div class="rodape-div-2">
+                <div class="rodape-div-2-coluna">
+                    <!-- elemento -->
+                    <div class="elementoFooter">
+                        <span>
+                            <h3 class="title-footer">MAPA DO SITE </h3>
+                        </span>
+                        <p>HOME </p>
+                        <p>CADASTRO </p>
+                        <p>DASHBOARD </p>
+                        <p>CARTEIRA </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="rodape-div-3">
+                <div class="rodape-div-4-coluna">
+                    <!-- elemento -->
+                    <div class="elementoFooter">
+                        <span>
+                            <h3 class="title-footer">Desenvolvedor</h3>
+                        </span>
+                        <div class="social-midia">
+                        </div>
+
+                        <p class="contact-text">
+                            <i id="email" class="fa fa-envelope" style="margin-right: 5px;"></i>Email:
+                            lukas.silvalsm@hotmail.com
+                        </p>
+                        <p class="contact-text">
+                            <i class='bx bxl-github' style="margin-right: 5px;"></i>Github: <a
+                                href="https://github.com/LucaSilvalsm">LucaSilvalsm</a>
+                        </p>
+                        <p class="contact-text">
+                            <i class='bx bxl-linkedin-square' style="margin-right: 5px;"></i>Linkedin: <a
+                                href="https://www.linkedin.com/in/lucas-da-silva-moreira/">Lucas Da Silva
+                                Moreira</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rodape-div-4">
+                <div class="rodape-div-4-coluna">
+                    <!-- elemento -->
+                    <div class="elementoFooter">
+                        <span>
+                            <h3 class="title-footer">Forma de Contato</h3>
+                        </span>
+                        <div class="social-midia">
+                        </div>
+                        <p class="contact-text">
+                            <i id="wpps" class="fab fa-whatsapp" style="margin-right: 5px;"></i>Telefone: (21)
+                            99343-xxxx
+                        </p>
+                        <p class="contact-text">
+                            <i id="email" class="fa fa-envelope" style="margin-right: 5px;"></i>Email:
+                            lukas.silvalsm@hotmail.com
+                        </p>
+                        <p class="contact-text">
+                            <i class='bx bxl-github' style="margin-right: 5px;"></i>Github: <a
+                                href="https://github.com/LucaSilvalsm">LucaSilvalsm</a>
+                        </p>
+                        <p class="contact-text">
+                            <i class='bx bxl-linkedin-square' style="margin-right: 5px;"></i>Linkedin: <a
+                                href="https://www.linkedin.com/in/lucas-da-silva-moreira/">Lucas Da Silva
+                                Moreira</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <p class="rodape-direitos">Copyright © 2023 – Todos os Direitos Reservados.</p>
+    </footer>
+
+</body>
+
+</html>

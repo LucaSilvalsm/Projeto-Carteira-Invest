@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --cor1: #6abb59; /* Exemplo de cor 1 */
+    --cor2: #028001; /* Exemplo de cor 2 */
+    --cor3: #fed725FF; /* Exemplo de cor 3 */
+    --cor4: #d3d3d369; /* Exemplo de cor 4 */
+    --cor5: #000000e5; /* Exemplo de cor 5 */
+}
+.custom-form-container {
+    max-width: 1350px; /* Ajuste a largura conforme necessário */
+    margin: 0 auto; /* Centraliza o formulário na página */
+  }
+
+.img-form{
+    width: 500px;
+    height: 800px;
+    border-radius: 1rem 0 0 1rem;
+}
+.img-cadastro{
+    width: 500px;
+    height: 900px;
+    border-radius: 1rem 0 0 1rem;
+}
+.logo-form{
+    display: block;
+    height: auto;
+    width: 400px;
+    padding: 40px;
+    margin: -90px -50px;
+    border: none;
+    
+   
+}
+
+.btn-card{
+    background-color: var(--cor2);
+    color: white;
+    
+}
+
+.btn-card:hover{
+  
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    background-color:var(--cor5);
+    color: var(--cor3);
+    border: 2px solid var(--cor3);
+    font-weight: bolder;
+}
+.page-title{
+    text-align: center;
+}

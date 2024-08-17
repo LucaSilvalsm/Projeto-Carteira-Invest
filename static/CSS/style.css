@@ -1,3 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
 :root {
     --cor1: #6abb59; /* Exemplo de cor 1 */
     --cor2: #028001; /* Exemplo de cor 2 */
@@ -5,11 +16,7 @@
     --cor4: #d3d3d369; /* Exemplo de cor 4 */
     --cor5: #000000e5; /* Exemplo de cor 5 */
 }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 .logo {
     max-width: 100px;
     margin-right: 10px;
@@ -26,7 +33,7 @@
 header {
     color: var(--cor4);
     font-size: 20px;
-    background-color: var(--cor5);
+    background-color: black;
     font-weight: bolder;
     text-transform: uppercase; 
     
@@ -50,6 +57,7 @@ header a:hover {
 .img-left{
     width: 300px;
     height: 600px;
+    
 }
 .section-menu, .section-chart, .section-dividendos, .section-donut {
     background-color: var(--cor4);
@@ -173,6 +181,9 @@ header a:hover {
     height: auto;
     width: 100%;
     font-size: 14px;
+    
+    flex-shrink: 0;
+
   
   }
   .rodape a{
