@@ -28,6 +28,7 @@ def login():
 def cadastro():
     return render_template("cadastro.html")
 
-@page_bp.route('/teste')
-def teste():
-    return render_template("teste.html")
+@page_bp.route('/painel')
+def painel():
+    print("Acessando a página de painel.html")
+    return render_template("./painel/painel.html")

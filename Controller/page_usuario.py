@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user
+from flask_login import login_user,logout_user
 from Controller.UsuarioController import UsuarioController
 from Model.Usuario import Usuario
 from Model import db
@@ -60,8 +60,8 @@ def login():
             login_user(usuario)
 
             # Redirecionar para a página teste.html
-            flash('Login realizado com sucesso!.', 'success')
-            return redirect(url_for('page_bp.index'))
+            flash('Login realizado com sucesso!', 'success')
+            return redirect(url_for('page_bp.painel'))
 
         # Se o email ou senha estiverem incorretos
         flash('Credenciais inválidas. Verifique seu email e senha.', 'error')
@@ -70,3 +70,14 @@ def login():
         flash('Por favor, forneça seu email e senha.', 'error')
 
     return redirect(url_for('page_bp.login')) 
+@user_bp.route('/logout')
+def logout():
+    # Utiliza o método do Flask-Login para deslogar o usuário
+    logout_user()
+
+    # Flash message opcional para informar o usuário que ele foi deslogado com sucesso
+    flash('Você foi deslogado com sucesso.', 'success')
+
+    # Redireciona para a página de login, ou para onde desejar após o logout
+    return redirect(url_for('page_bp.index'))
+    

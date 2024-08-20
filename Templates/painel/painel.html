@@ -1,0 +1,65 @@
+{% extends 'painel/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/dash.css') }}">
+
+
+<div class="content">
+    <div class="titulo-secao">
+        {% set messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="msg-container">
+                {% for category, message in messages %}
+                    <div class="msg {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <h2>Dashboard</h2>
+        <br />
+        <hr>
+        <p><i class="fa-solid fa-house"></i> / Dashboard dee Investimento</p>
+        
+    </div>
+
+    <div class="box-info"> 
+        <div class="box-info-single" id="valorizacao">
+            <div class="info-text">
+                <h3>Valorização</h3>
+                <p>R$  </p>
+            </div>
+            <i class="fa-solid fa-money-check-dollar"></i>
+        </div>
+        <div class="box-info-single" id="rentabilidade">
+            <div class="info-text">
+                <h3>Rentabildiade</h3>
+                <p>T  </p>
+            </div>
+            <i class="fa-solid fa-store"></i>
+        </div>
+        <div class="box-info-single" id="dividendos">
+            <div class="info-text">
+                <h3>Dividendos</h3>
+                <p>R$ 1.500,00</p> <!-- Ajustar conforme lógica de negócio -->
+            </div>
+            <i class="fa-solid fa-money-check-dollar"></i>
+        </div>
+        <div class="box-info-single" id="investido">
+            <div class="info-text">
+                <h3>Valor Investido</h3>
+                <p> R$  </p>
+            </div>
+            <i class="fa-solid fa-money-check-dollar"></i>
+        </div>
+    </div>
+
+    
+    
+
+</div> <!--FIM Content-->
+
+</section> <!--MAIN-->
+
+
+{% endblock %}
