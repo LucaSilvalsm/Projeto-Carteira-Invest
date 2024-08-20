@@ -1,0 +1,201 @@
+{% extends 'painel/base.html' %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/teste.css') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/dash.css') }}">
+
+
+
+
+
+<div class="content">
+    <div class="titulo-secao">
+        {% set messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <div class="msg-container">
+            {% for category, message in messages %}
+            <div class="msg {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h3>Dashboard</h3>
+        <br />
+        <hr class="dash">
+        <p><i class="fa-solid fa-house"></i> / Adicionando Ativos</p>
+        
+    </div>
+
+    <div class="titulo-section">
+        {% set messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <div class="msg-container">
+            {% for category, message in messages %}
+            <div class="msg {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h3>Dashboard</h3>
+        <br />
+        <hr class="dash">
+        <p><i class="fa-solid fa-house"></i> / Dashboard de Investimento</p>
+        
+        <h2 class="page-title">Adicionar Ativos</h2>
+        <form action="" method="POST" class="form-ativo">
+            <input type="hidden" name="type" value="criar">
+
+            <div class="row mb-4">
+                <div class="col">
+                  <div data-mdb-input-init class="form-outline">
+                    <label class="form-label" for="nome_ativo">Nome da Empresa:</label>
+                    <input type="text" id="nome_ativo"  name="nome_ativo" class="form-control" placeholder="Digite o nome da Empresa" />
+                    
+                  </div>
+                </div>
+                <div class="col">
+                  <div data-mdb-input-init class="form-outline">
+                    <label class="form-label" for="ticket_ativo">Ticket da Empresa: </label>
+                    <input type="text"id="ticket_ativo"  name="ticket_ativo"  class="form-control" placeholder="Digite o ticker que deseja buscar no formato ex: TAEE11.SA: "/>
+                    
+                  </div>
+                </div>
+              </div>
+
+            <label for="categoria">Categoria do Ativo:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecione o tipo do Ativo</option>
+                <option value="Acao">Ação</option>
+                <option value="FIIs">FIIs(Fundo de Investimento Imobiliário)</option>
+                <option value="ETF">ETF</option>
+                <option value="Renda Fixa">Renda Fixa</option>                
+            </select>
+
+           
+
+            <label>Setor Ação:</label>
+            <div class="setorAtivo">
+               
+                <input type="checkbox" id="Eletrico" name="setor[]" value="Eletrico" onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Eletrico">Eletrico</label>
+              
+             
+
+                <input type="checkbox" id="Varejo" name="setor[]" value="Varejo"  onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Varejo">Varejo</label>
+
+                <input type="checkbox" id="Bancos" name="setor[]" value="Bancos" onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Bancos">Bancos</label>
+
+                <input type="checkbox" id="Seguradoras" name="setor[]" value="Seguradoras" onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Seguradoras">Seguradoras</label>
+                
+                <input type="checkbox" id="Fintechs" name="setor[]" value="Fintechs" onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Fintechs">Fintechs</label>
+
+                <input type="checkbox" id="Saneamento" name="setor[]" value="Saneamento"  onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Saneamento">Saneamento</label>
+
+                <input type="checkbox" id="Saude" name="setor[]" value="Saneamento" onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-Saneamento">Saneamento</label>
+
+                <input type="checkbox" id="commodities" name="setor[]" value="commodities" onclick="permitirApenasUmCheckbox(this)">
+                <label for="setor-commodities">commodities</label>
+                
+            </div>
+
+            <hr class="hr-setor">
+
+            <label>Setor FIIs (Fundo de Investimento Imobiliário)</label>
+            <div class="setorAtivo">
+
+                <input type="checkbox" id="Lajes Corporativas" name="setor[]" value="Lajes Corporativas" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Lajes Corporativas">Lajes Corporativas</label>
+
+                <input type="checkbox" id="Shopping" name="setor[]" value="Shopping" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Shopping">Shopping</label>
+
+                <input type="checkbox" id="Papel" name="setor[]" value="Papel" onclick="permitirApenasUmCheckbox(this)">
+                <label for="Papel">Papel </label>
+
+                <input type="checkbox" id="Tijolo" name="setor[]" value="Tijolo" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Tijolo">Tijolo</label>
+
+                <input type="checkbox" id="Hibridos" name="setor[]" value="Hibridos" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Hibridos">Hibridos</label>
+
+                <input type="checkbox" id="Industrial" name="setor[]" value="Industrial" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Industrial">Industrial</label>
+
+                
+            </div>
+            <hr class="hr-setor">
+
+            <label>Setor ETF (Exchange Traded Fund)</label>
+            <div class="setorAtivo">
+
+                <input type="checkbox" id="Brasileiro" name="setor[]" value="Brasileiro" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Brasileiro">Brasileiro</label>
+
+                <input type="checkbox" id="Estrangeiros" name="setor[]" value="Estrangeiros" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Estrangeiros">Estrangeiros</label>    
+
+            </div>
+            <hr class="hr-setor">
+            <label>Renda Fixa </label>
+            <div class="setorAtivo">
+
+                <input type="checkbox" id="Tesouro Selic" name="setor[]" value="Tesouro Selic" onclick="permitirApenasUmCheckbox(this)" >
+                <label for="Tesouro Selic">Tesouro Selic</label>
+
+                <input type="checkbox" id="Tesouro IPCA" name="setor[]" value="Tesouro IPCA" onclick="permitirApenasUmCheckbox(this)">
+                <label for="Tesouro IPCA">Tesouro IPCA</label>    
+                               
+            </div>
+
+            <hr class="hr-setor">
+
+            <label for="preco">Preço medio:</label>
+            <input type="text" id="preco" name="preco" placeholder="Formato sugerido Ex: 30.40" required>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="text" id="quantidade" name="quantidade" required>
+
+            <label for="dividendo">Dividendos Recebido por esse ativo:</label>
+            <input type="text" id="dividendo" name="dividendo" placeholder="Formato sugerido Ex: 20 ou 20.00" required>
+
+            <label for="preco_pessoal">Preço Pessoal do ativo:</label>
+            <input type="text" id="preco_pessoal" name="preco_pessoal" placeholder="Formato sugerido Ex: 10.40"required>
+
+            
+
+           
+
+            <button class="btn align-self-center card-btn" type="submit">Adicionar ativo</button>
+        </form>
+        
+    </div>
+
+
+
+
+    
+        
+
+    </div>
+    
+    <script src="{{ url_for('static', filename='JS/limite.js') }}"></script>
+</div> <!--FIM Content-->
+    {% endblock %}
+
+
+
+
+
+
+
+

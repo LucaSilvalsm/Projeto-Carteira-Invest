@@ -35,4 +35,8 @@ O projeto tem a sua funcionalidades para apresentar:
 - `SQLALCHEMY` - Biblioteca para mapeamento objeto-relacional com banco de dados
 
 ##
-### BIBLIOTECA E FRAMEWORK PYTHON USADA NO PROJETO
+### BIBLIOTECA E FRAMEWORK PARA MONTAR OS GRAFICOS
+
+- `MATPLOTLIB` 
+- `SEABORN` 
+

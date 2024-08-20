@@ -32,3 +32,8 @@ def cadastro():
 def painel():
     print("Acessando a página de painel.html")
     return render_template("./painel/painel.html")
+
+@page_bp.route('/ativos')
+
+def ativos():
+    return render_template("./painel/ativos.html")
