@@ -1,3 +1,4 @@
+# Controller/page_controller.py
 from flask import Blueprint, render_template, flash, redirect, url_for, session,request
 from Model.Usuario import Usuario
 from Model.Ativos import Ativos
@@ -26,3 +27,7 @@ def login():
 @page_bp.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     return render_template("cadastro.html")
+
+@page_bp.route('/teste')
+def teste():
+    return render_template("teste.html")

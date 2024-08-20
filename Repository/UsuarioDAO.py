@@ -1,28 +1,57 @@
 from Model import db
 from Model.Usuario import Usuario
-from sqlalchemy.orm import Session
-from sqlalchemy import update
+from sqlalchemy.orm import sessionmaker
 
 class UsuarioDAO:
     def __init__(self):
-        self.Session = Session(bind=db.engine)
+        self.Session = sessionmaker(bind=db.engine)
     
     def incluir(self, usuario):
-        self.Session.add(usuario)
-        self.Session.commit()
+        session = self.Session()
+        try:
+            session.add(usuario)
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
     
     def alterar(self, usuario):
-        self.Session.execute(update(Usuario).where(Usuario.id == usuario.id).values
-                    (nome=usuario.nome, sobrenome=usuario.sobrenome, 
-                    email=usuario.email,
-                    senha=usuario.senha, 
-                    cpf=usuario.cpf))
-        self.Session.commit()
+        session = self.Session()
+        try:
+            usuario_atual = session.query(Usuario).filter(Usuario.id == usuario.id).first()
+            if usuario_atual:
+                usuario_atual.nome = usuario.nome
+                usuario_atual.sobrenome = usuario.sobrenome
+                usuario_atual.email = usuario.email
+                usuario_atual.cpf = usuario.cpf
+                if usuario.senha:
+                    usuario_atual.set_senha(usuario.senha)
+                session.commit()
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+    
     def obter_por_id(self, id):
-        return self.Session.query(Usuario).filter(Usuario.id == id).first()
+        session = self.Session()
+        try:
+            return session.query(Usuario).filter(Usuario.id == id).first()
+        finally:
+            session.close()
     
     def obter_por_email(self, email):
-        return self.Session.query(Usuario).filter(Usuario.email == email).first()
+        session = self.Session()
+        try:
+            return session.query(Usuario).filter(Usuario.email == email).first()
+        finally:
+            session.close()
     
-    def close(self):
-        self.Session.close()
+    def obter_por_cpf(self, cpf):
+        session = self.Session()
+        try:
+            return session.query(Usuario).filter(Usuario.cpf == cpf).first()
+        finally:
+            session.close()
