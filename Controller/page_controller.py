@@ -1,5 +1,5 @@
 # Controller/page_controller.py
-from flask import Blueprint, render_template, flash, redirect, url_for, session,request
+from flask import Blueprint, render_template, redirect, url_for, session,request
 from Model.Usuario import Usuario
 from Model.Ativos import Ativos
 from Model.config import DATABASE
@@ -34,6 +34,6 @@ def painel():
     return render_template("./painel/painel.html")
 
 @page_bp.route('/ativos')
-
 def ativos():
+    print("Acessando a página de ativos.html")
     return render_template("./painel/ativos.html")

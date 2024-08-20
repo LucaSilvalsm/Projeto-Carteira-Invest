@@ -9,6 +9,9 @@
   --cor3: #fed725FF; /* Exemplo de cor 3 */
   --cor4: #d3d3d369; /* Exemplo de cor 4 */
   --cor5: #000000e5; /* Exemplo de cor 5 */
+  --cor6: #1F3B4D;
+  --cor7: #F5F5F5;
+  --cor8: #FFFFFF; 
 }
 
 body, html {
@@ -19,25 +22,28 @@ body, html {
     display: flex;
     flex-wrap: wrap;
     min-height: 100%; /* Alteração: define a altura mínima para a barra lateral */
+    
 }
 
 .sidebar {
     margin-bottom: -20px;
     width: 20%;
-    background-color: #F5C518;
+    background-color: var(--cor6);
+    
     /* Remova a altura fixa */
 }
 header {
-    background-color: #F5C518;
+    background-color: var(--cor6);
     padding: 5px 2%;
     display: flex;
     justify-content: space-between;
+    color: var(--cor7);
 }
 
 .info-header {
-    color: black;
+    color: var(--cor8);
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 
 }
 th{
@@ -91,24 +97,25 @@ td{
 
 .sidebar {
     width: 15%;
-    background-color: #F5C518;
+    background-color: var(--cor6);
     min-height: 100%;
+    color: var(--cor8);
 
 }
 .sidebar a.sidebar-active{
     border-left: 8px solid white;
     background-color: black;
-    color: #F5C518;
+    color: var(--cor8);
     font-weight: bolder;
 }
 .sidebar a:hover{
     border-left: 8px solid white;
     background-color: black;
-    color: #F5C518;
+    color: var(--cor8);
     font-weight: bolder;
 }
 .sidebar h3 {
-    color: black;
+    color: white;
     font-size: 20px;
     margin: 10px;
 }
@@ -117,7 +124,7 @@ td{
     display: block;
     text-decoration: none;
     padding: 10px 15px;
-    color: black;
+    color: white;
 
 }
 
@@ -355,7 +362,17 @@ body {
   
   color: var(--cor2);
 }
+.fa-solid{
+  text-align: r;
+}
 
-
+.dashboard-content  .page-title i {
+  float: right;
+  margin-left: 10px; /* Espaçamento entre o título e o ícone */
+  justify-content: space-around;
+}
+.card{
+  justify-content: space-between;
+}
 
 

@@ -7,6 +7,7 @@ from flask_session import Session
 # Importando blueprints
 from Controller.page_controller import page_bp
 from Controller.page_usuario import user_bp
+from Controller.page_ativos import ativos_bp
 
 # Importar a instância do banco de dados
 from Model import db, Usuario
@@ -27,14 +28,16 @@ Session(app)
 db.init_app(app)
 app.register_blueprint(page_bp)
 app.register_blueprint(user_bp, url_prefix='/user')
+app.register_blueprint(ativos_bp, url_prefix='/ativos')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'user_bp.login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
-    return Usuario.query.get(user_id)
+    return db.session.get(Usuario, user_id)
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,25 +1,26 @@
+document.getElementById('categoria').addEventListener('change', function() {
+    var categoria = this.value;
 
-
-function permitirApenasUmCheckbox(checkbox) {
-    const checkboxes = document.getElementsByName(checkbox.name);
-    checkboxes.forEach((cb) => {
-        if (cb !== checkbox) {
-            cb.checked = false;
-        }
+    // Ocultar todos os setores
+    document.querySelectorAll('.setorAtivo').forEach(function(element) {
+        element.style.display = 'none';
     });
-}
 
-const form = document.getElementById('form-hamburguer');
-form.addEventListener('submit', function() {
-    const checkboxes = document.getElementsByName('setor');
-    let selected = false;
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            selected = true;
-        }
-    });
-    if (!selected) {
-        alert('Selecione um setor para o ativo.');
-        event.preventDefault();
+    // Mostrar o setor correspondente à categoria selecionada
+    if (categoria === 'Acao') {
+        document.getElementById('setor-acao').style.display = 'block';
+    } else if (categoria === 'FIIs') {
+        document.getElementById('setor-fiis').style.display = 'block';
+    } else if (categoria === 'ETF') {
+        document.getElementById('setor-etf').style.display = 'block';
+    } else if (categoria === 'Renda Fixa') {
+        document.getElementById('setor-rendafixa').style.display = 'block';
     }
 });
+function permitirApenasUmCheckbox(checkbox) {
+    const checkboxes = document.getElementsByName(checkbox.name);
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false;
+    });
+    console.log("Checkbox selecionado:", checkbox.value);
+}
