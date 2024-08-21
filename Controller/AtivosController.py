@@ -24,3 +24,21 @@ class AtivosController:
     
     def todos_ativos_por_usuario(self, usuario_id):
         return self.dao.todos_ativos_por_usuario(usuario_id)
+    
+    def soma_dividendos_recebidos(self, usuario_id):
+        return self.dao.soma_dividendos_recebidos(usuario_id)
+    
+    def valor_total_investido(self, usuario_id):
+        return self.dao.valor_total_investido(usuario_id)
+    
+    def ativos_por_categoria(self, categoria):
+        return self.dao.ativos_por_categoria(categoria)
+    def ativos_acao(self):
+        return self.ativos_por_categoria("Ação")
+    def ativos_fiis(self):
+        return self.ativos_fiis("FIIs")
+    def valor_investido_por_setor_acao(self):
+        return self.dao.valor_investido_por_setor("Ação")
+
+    def valor_investido_por_setor_fiis(self):
+        return self.dao.valor_investido_por_setor("FIIs")

@@ -4,7 +4,9 @@ from Model.Usuario import Usuario
 from Model.Ativos import Ativos
 from Model.config import DATABASE
 from sqlalchemy.orm import sessionmaker
+from flask_login import current_user,login_required
 from sqlalchemy import create_engine
+from Controller.AtivosController import AtivosController
 
 
 
@@ -28,10 +30,16 @@ def login():
 def cadastro():
     return render_template("cadastro.html")
 
+@login_required
 @page_bp.route('/painel')
+
 def painel():
-    print("Acessando a página de painel.html")
-    return render_template("./painel/painel.html")
+    ativosController = AtivosController()
+    usuario_id = current_user.id
+    
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
+    return render_template("./painel/painel.html", valor_total_investido=valor_total_investido, dividendo_recebidos=dividendo_recebidos)
 
 @page_bp.route('/ativos')
 def ativos():

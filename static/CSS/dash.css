@@ -262,13 +262,10 @@ body {
 
 
 
-/* Parte do Novo Produto */
+/*  */
 .card-btn {
   margin-top: 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -276,13 +273,13 @@ body {
   width: 100%;
   height: 50px;
   border-radius: 10px;
-  background: #F5C518;  
+  background: var(--cor6);  
   font-size: 12px;
-  color: black;
+  color: var(--cor3);
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 1px;
-
+  
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -290,8 +287,9 @@ body {
 }
 
 .card-btn:hover{
-  background: black;
-  color: #F5C518;
+  background: var(--cor5);
+  color: white;
+  font-weight: bolder;
 }
 /* config MSG */
 
@@ -326,6 +324,7 @@ body {
 /* aqui começa o painel*/
 .dashboard-content {
   display: flex;
+  
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 20px;
@@ -335,16 +334,23 @@ body {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  
 }
 
 .card {
-  background: #fff;
+  max-height: 100vh;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 10px;
   flex: 1 1 calc(50% - 20px); /* Faz com que cada card ocupe metade da largura */
   box-sizing: border-box;
+}
+.grafico-tipoAtivo, .grafico-acao, .grafico-fiis{
+  background-color:var(--cor4);
+}
+.grafico-consolidado{
+  background-color: var(--cor4);
 }
 
 .card h3 {

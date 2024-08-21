@@ -7,7 +7,7 @@ document.getElementById('categoria').addEventListener('change', function() {
     });
 
     // Mostrar o setor correspondente à categoria selecionada
-    if (categoria === 'Acao') {
+    if (categoria === 'Ação') {
         document.getElementById('setor-acao').style.display = 'block';
     } else if (categoria === 'FIIs') {
         document.getElementById('setor-fiis').style.display = 'block';
