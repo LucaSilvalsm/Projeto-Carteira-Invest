@@ -136,7 +136,7 @@ def grafico_setor(id):  # Gráfico de setores da categoria "Ação"
     usuario_id = current_user.id  # Pega o ID do usuário atual
 
     # Obtendo o valor investido por setor para a categoria "Ação"
-    setores_acao = ativos_controller.valor_investido_por_setor_acao()
+    setores_acao = ativos_controller.valor_investido_por_setor_acao(usuario_id)
 
     setores = list(setores_acao.keys())
     valores = list(setores_acao.values())
@@ -163,17 +163,16 @@ def grafico_setor(id):  # Gráfico de setores da categoria "Ação"
     
     return fig
 
-
 @dash_app.callback(
     Output('grafico-fundos', 'figure'),
     [Input('grafico-fundos', 'id')]
 )
 def grafico_fundos(id):  # Gráfico de setores da categoria "Ação"
     ativos_controller = AtivosController()
+    
     usuario_id = current_user.id  # Pega o ID do usuário atual
-
     # Obtendo o valor investido por setor para a categoria "Ação"
-    setores_acao = ativos_controller.valor_investido_por_setor_fiis()
+    setores_acao = ativos_controller.valor_investido_por_setor_fiis(usuario_id)
 
     setores = list(setores_acao.keys())
     valores = list(setores_acao.values())

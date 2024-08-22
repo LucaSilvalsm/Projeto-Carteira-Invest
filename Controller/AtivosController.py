@@ -37,8 +37,13 @@ class AtivosController:
         return self.ativos_por_categoria("Ação")
     def ativos_fiis(self):
         return self.ativos_fiis("FIIs")
-    def valor_investido_por_setor_acao(self):
-        return self.dao.valor_investido_por_setor("Ação")
+    def valor_investido_por_setor_acao(self, usuario_id):
+        return self.dao.valor_investido_por_setor_acao(usuario_id)
 
-    def valor_investido_por_setor_fiis(self):
-        return self.dao.valor_investido_por_setor("FIIs")
+    def valor_investido_por_setor_fiis(self, usuario_id):
+        return self.dao.valor_investido_por_setor_fiis(usuario_id)
+    def valor_investido_atualizado(self, usuario_id):
+        return self.dao.valor_investido_atualizado(usuario_id)
+    
+    def atualizar_cotacoes(self, usuario_id):
+        return self.dao.atualizar_cotacoes(usuario_id)

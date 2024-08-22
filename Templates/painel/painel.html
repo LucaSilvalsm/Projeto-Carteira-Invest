@@ -25,21 +25,21 @@
         <div class="box-info-single" id="valorizacao">
             <div class="info-text">
                 <h3>Valorização</h3>
-                <p>R$ </p>
+                <p>R$ {{ valor_atualizado }}</p>
             </div>
             <i class="fa-solid fa-money-check-dollar"></i>
         </div>
         <div class="box-info-single" id="rentabilidade">
             <div class="info-text">
-                <h3>Rentabilidade</h3>
-                <p> </p>
+                <h3>Retorno  <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p> {{ rentabilidade }} </p>
             </div>
            
         </div>
         <div class="box-info-single" id="dividendos">
             <div class="info-text">
                 <h3>Dividendos <i class="fa-solid fa-money-check-dollar"></i></h3>
-                <p>R$ {{ dividendo_recebidos }} </p> <!-- Ajustar conforme lógica de negócio -->
+                <p> {{ dividendo_recebidos }} </p> 
             </div>
             
         </div>

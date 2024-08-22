@@ -237,7 +237,7 @@ td{
 }
 
 #rentabilidade {
-    background-color: red;
+    background-color: rgba(233, 130, 130, 0.555);
     border-radius: 10px;
     text-align: center;
     margin: 10px 0; /* Ajustado */

@@ -40,7 +40,7 @@ def register():
         usuarioController.incluir(usuario)
 
         flash('Cadastro realizado com sucesso!', 'success')
-        return redirect(url_for('user_bp.login'))
+        return redirect(url_for('page_bp.login'))
 
     return render_template('login.html')
 

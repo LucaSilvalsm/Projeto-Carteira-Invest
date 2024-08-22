@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from flask_login import current_user,login_required
 from sqlalchemy import create_engine
 from Controller.AtivosController import AtivosController
+import locale
 
 
 
@@ -36,10 +37,24 @@ def cadastro():
 def painel():
     ativosController = AtivosController()
     usuario_id = current_user.id
+
+    # Calcula o valor atualizado dos investimentos sem alterar o banco
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
     
+    # Calcula o valor total investido originalmente
     valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    
+    # Calcula os dividendos recebidos
     dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
-    return render_template("./painel/painel.html", valor_total_investido=valor_total_investido, dividendo_recebidos=dividendo_recebidos)
+    
+    # Calcula a rentabilidade (valor atualizado - valor total investido)
+    rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
+
+    return render_template("./painel/painel.html", 
+                           valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+                           dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+                           valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+                           rentabilidade=f"R$ {rentabilidade:,.2f}")
 
 @page_bp.route('/ativos')
 def ativos():
