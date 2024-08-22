@@ -60,3 +60,38 @@ def painel():
 def ativos():
     print("Acessando a página de ativos.html")
     return render_template("./painel/ativos.html")
+
+
+
+@login_required
+@page_bp.route('/painel/consolidado')
+def consolidado():
+    ativosController = AtivosController()
+    usuario_id = current_user.id
+
+    # Calcula o valor atualizado dos investimentos sem alterar o banco
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
+    
+    # Calcula o valor total investido originalmente
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    
+    # Calcula os dividendos recebidos
+    dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
+    
+    # Calcula a rentabilidade (valor atualizado - valor total investido)
+    rentabilidade = valor_atualizado + dividendo_recebidos - valor_total_investido
+    
+    # Verifica se valor_total_investido é zero para evitar divisão por zero
+    if valor_total_investido == 0:
+        rentabilidade_real = 0
+    else:
+        # Calcula a rentabilidade real em porcentagem
+        rentabilidade_real = (rentabilidade / valor_total_investido) * 100
+
+    return render_template(
+        "./painel/carteiraConsolidada.html", 
+        valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+        dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+        valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+        rentabilidade_real=f"{rentabilidade_real:.2f}%"
+    )
