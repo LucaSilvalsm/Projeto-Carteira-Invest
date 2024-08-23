@@ -86,7 +86,35 @@ class AtivosDAO:
             return resultado
         finally:
             session.close()
+    def todos_ativos_por_usuario_atualizado(self, usuario_id):
+        session = self.Session()
+        try:
+            ativos = session.query(Ativos).filter(Ativos.usuario_id == usuario_id).all()
+            resultado = {}
+            
+            for ativo in ativos:
+                if ativo.categoria != 'Renda Fixa':
+                    # Obtém a cotação atual do ticket usando yfinance
+                    ticker = yf.Ticker(ativo.ticket_ativo)
+                    historico = ticker.history(period='1d')
+                    
+                    if not historico.empty:
+                        cotacao_atual = float(historico['Close'].iloc[0])
+                    else:
+                        cotacao_atual = ativo.preco_medio  # Usa o preço médio se não conseguir a cotação atual
+                else:
+                    cotacao_atual = ativo.preco_medio  # Renda Fixa não precisa de atualização, usa o preço médio
 
+                # Calcula o valor total do ativo baseado na cotação atual ou no preço médio
+                valor_total = ativo.quantidade * cotacao_atual
+                resultado[ativo.ticket_ativo] = valor_total
+
+            return resultado
+
+        finally:
+            session.close()
+            
+    
     def soma_dividendos_recebidos(self, usuario_id):
         session = self.Session()
         try:
@@ -172,6 +200,65 @@ class AtivosDAO:
             raise e
         finally:
             session.close()
+    def valor_ativos_valorizados(self, usuario_id):
+        session = self.Session()
+        try:
+            ativos_valorizados = []
+            # Filtra os ativos que não pertencem à categoria "Renda Fixa"
+            ativos = session.query(Ativos).filter(
+                Ativos.usuario_id == usuario_id,
+                Ativos.categoria != 'Renda Fixa'
+            ).all()
+
+            for ativo in ativos:
+                ticker = yf.Ticker(ativo.ticket_ativo)
+                historico = ticker.history(period='1d')
+                
+                if not historico.empty:
+                    cotacao_atual = float(historico['Close'].iloc[0])
+
+                    if cotacao_atual > ativo.preco_medio:
+                        ativos_valorizados.append(ativo)
+
+            return ativos_valorizados
+
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+    
+    
+    
+    def valor_ativos_desvalorizados(self, usuario_id):
+        session = self.Session()
+        try:
+            ativos_desvalorizados = []
+            # Filtra os ativos que não pertencem à categoria "Renda Fixa"
+            ativos = session.query(Ativos).filter(
+                Ativos.usuario_id == usuario_id,
+                Ativos.categoria != 'Renda Fixa'
+            ).all()
+
+            for ativo in ativos:
+                ticker = yf.Ticker(ativo.ticket_ativo)
+                historico = ticker.history(period='1d')
+                
+                if not historico.empty:
+                    cotacao_atual = float(historico['Close'].iloc[0])
+
+                    if cotacao_atual < ativo.preco_medio:
+                        ativos_desvalorizados.append(ativo)
+
+            return ativos_desvalorizados
+
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+
+    
 
     def ativos_acao(self):
         return self.ativos_por_categoria("Ação")
@@ -207,3 +294,15 @@ class AtivosDAO:
             raise e
         finally:
             session.close()
+            
+    def dividendos_por_ativo(self, usuario_id):
+            session = self.Session()
+            # Supondo que `session` é a sessão do SQLAlchemy
+            query = session.query(Ativos.ticket_ativo, db.func.sum(Ativos.dividendos)).filter_by(usuario_id=usuario_id).group_by(Ativos.ticket_ativo).all()
+            
+            # O retorno dessa query parece ser uma lista de tuplas, onde cada tupla contém (ticket_ativo, soma_dos_dividendos)
+            # Verifique se você está manipulando isso corretamente
+            
+            # Exemplo de manipulação correta dos dados
+            resultado = {ticket: total for ticket, total in query}
+            return resultado

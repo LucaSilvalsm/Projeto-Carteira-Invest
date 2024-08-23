@@ -3,6 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='CSS/dash.css') }}">
 
+
 <div class="content">
     <div class="titulo-secao">
         {% set messages = get_flashed_messages(with_categories=True) %}
@@ -25,67 +26,89 @@
         <div class="box-info-single" id="valorizacao">
             <div class="info-text">
                 <h3>Valorização</h3>
-                <p>R$ {{ valor_atualizado }}</p>
+                <p> {{ valor_atualizado }}</p>
             </div>
             <i class="fa-solid fa-money-check-dollar"></i>
         </div>
         <div class="box-info-single" id="rentabilidade">
             <div class="info-text">
-                <h3>Rentabilidade  <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <h3>Rentabilidade <i class="fa-solid fa-money-check-dollar"></i></h3>
                 <p> {{ rentabilidade_real }} </p>
             </div>
-           
+
         </div>
         <div class="box-info-single" id="dividendos">
             <div class="info-text">
                 <h3>Dividendos <i class="fa-solid fa-money-check-dollar"></i></h3>
-                <p> {{ dividendo_recebidos }} </p> 
+                <p> {{ dividendo_recebidos }} </p>
             </div>
-            
+
         </div>
         <div class="box-info-single" id="investido">
             <div class="info-text">
                 <h3>Valor Investido <i class="fa-solid fa-money-check-dollar"></i></h3>
                 <p> R$ {{ valor_total_investido }} </p>
             </div>
-           
+
         </div>
     </div>
 
-    <!-- Novo bloco para os gráficos e estatísticas -->
-   <div class="dashboard-content">
-    <div class="card-container">
-        
-        <div class="card grafico-consolidado">
-            <a href="#" class="title-link">
-                <h2 class="page-title">Carteira Consolidada <i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
-            </a>
-            <iframe src="/dashboard/grafico-ativos" style="width:100%; height:400px; border:none;"></iframe>
-        </div>
+    <!-- Novo bloco para os gráficos e aside -->
+    <div class="dashboard-layout">
+        <div class="dashboard-content">
+            <div class="card grafico-consolidado">
+                <a href="#" class="title-link">
+                    <h2 class="page-title">Carteira consolidado pela Cotação<i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
+                </a>
+                <iframe src="/dashboard/grafico-cotacao" style="width:100%; height:400px; border:none;"></iframe>
+            </div>
+            <div class="card grafico-tipoAtivo">
+                <h2 class="page-title">Carteira pelo seu P.M </h2>
+                <iframe src="/dashboard/grafico-ativos" style="width:100%; height:400px; border:none;"></iframe>
+            </div>
+            <div class="card grafico-tipoAtivo">
+                <h2 class="page-title">Dividendos Recebido </h2>
+                <iframe src="/dashboard/grafico-dividendo" style="width:100%; height:400px; border:none;"></iframe>
+            </div>
+            <div class="card grafico-acao">
+                <a href="#" class="title-link">
+                    <h2 class="page-title">Carteira de Ação <i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
+                </a>
+                <iframe src="/dashboard/grafico-setor" style="width:100%; height:400px; border:none;"></iframe>
+            </div>
 
-        <div class="card grafico-tipoAtivo">
-            <h2 class="page-title">Carteira por Tipo de Ativo</h2>
-            <iframe src="/dashboard/grafico-categoria" style="width:100%; height:400px; border:none;"></iframe>
-        </div>
-
-        <div class="card grafico-acao">
-            <a href="#" class="title-link">
-                <h2 class="page-title">Carteira de Ação <i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
-            </a>
-            <iframe src="/dashboard/grafico-setor" style="width:100%; height:400px; border:none;"></iframe>
-        </div>
-
-        <div class="card grafico-fiis">
-            <a href="#" class="title-link">
-                <h2 class="page-title">Carteira de FIIs <i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
-            </a>
-            <iframe src="/dashboard/grafico-fundos" style="width:100%; height:400px; border:none;"></iframe>
             
         </div>
+
+        <!-- Aside -->
+        <aside id="nav-container">
+            <h3 id="tags-title">SETOR</h3>
+            <ul id="tag-list">
+                <li><a href="#">AÇÃO</a></li>
+                <li><a href="#">FIIs</a></li>
+                <li><a href="#">ETF</a></li>
+            </ul>
+            <h3 id="categories-title">CATEGORIAS</h3>
+            <ul id="categories-list">
+                <li><a href="#">Eletrico</a></li>
+                <li><a href="#">Varejo</a></li>
+                <li><a href="#">Bancos</a></li>
+                <li><a href="#">Seguradoras</a></li>
+                <li><a href="#">Fintechs</a></li>
+                <li><a href="#">Saneamento</a></li>
+                <li><a href="#">Saúde</a></li>
+                <li><a href="#">Commodities</a></li>
+                <li><a href="#">Lajes Corporativas</a></li>
+                <li><a href="#">Shopping</a></li>
+                <li><a href="#">Papel</a></li>
+                <li><a href="#">Tijolo</a></li>
+                <li><a href="#">Híbridos</a></li>
+                <li><a href="#">Industrial</a></li>
+                <li><a href="#">Fiagro</a></li>
+            </ul>
+        </aside>
     </div>
-</div>
+</div> <!-- FIM Content -->
 
-
-</div> <!--FIM Content-->
 
 {% endblock %}

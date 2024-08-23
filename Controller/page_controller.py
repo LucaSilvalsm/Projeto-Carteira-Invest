@@ -1,11 +1,13 @@
 # Controller/page_controller.py
-from flask import Blueprint, render_template, redirect, url_for, session,request
+from flask import Blueprint, render_template
 from Model.Usuario import Usuario
 from Model.Ativos import Ativos
 from Model.config import DATABASE
 from sqlalchemy.orm import sessionmaker
 from flask_login import current_user,login_required
 from sqlalchemy import create_engine
+from flask import request,flash
+
 from Controller.AtivosController import AtivosController
 import locale
 
@@ -25,16 +27,19 @@ def index():
 
 @page_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    
     return render_template("login.html")
 
 @page_bp.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     return render_template("cadastro.html")
 
-@login_required
+
 @page_bp.route('/painel')
+@login_required
 
 def painel():
+    current_route = 'painel'
     ativosController = AtivosController()
     usuario_id = current_user.id
 
@@ -49,26 +54,66 @@ def painel():
     
     # Calcula a rentabilidade (valor atualizado - valor total investido)
     rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
+    
+    ativos_valorizados = ativosController.ativos_valorizados(usuario_id)
+    ativos_desvalorizados = ativosController.ativos_desvalorizados(usuario_id)
 
     return render_template("./painel/painel.html", 
+                           current_route=current_route,
                            valor_total_investido=f"R$ {valor_total_investido:,.2f}",
                            dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
                            valor_atualizado=f"R$ {valor_atualizado:,.2f}",
-                           rentabilidade=f"R$ {rentabilidade:,.2f}")
+                           rentabilidade=f"R$ {rentabilidade:,.2f}",
+                           ativos_valorizados=ativos_valorizados,
+                           ativos_desvalorizados=ativos_desvalorizados)
+                           
 
-@page_bp.route('/ativos')
-def ativos():
-    print("Acessando a página de ativos.html")
-    return render_template("./painel/ativos.html")
-
-
-
+@page_bp.route('/painel/adicionar_ativos')
 @login_required
-@page_bp.route('/painel/consolidado')
-def consolidado():
+def ativos():
+    current_route = 'adicionar_ativos'
+    print("Acessando a página de ativos.html")
+    return render_template("./painel/ativos.html",current_route=current_route)
+
+
+@page_bp.route('/painel/mapa_da_carteira')
+@login_required
+def mapa():
+    current_route = 'mapa_ativos'
     ativosController = AtivosController()
     usuario_id = current_user.id
 
+    # Calcula o valor atualizado dos investimentos sem alterar o banco
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
+    
+    # Calcula o valor total investido originalmente
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    
+    # Calcula os dividendos recebidos
+    dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
+    
+    # Calcula a rentabilidade (valor atualizado - valor total investido)
+    rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
+    
+    ativos_valorizados = ativosController.ativos_valorizados(usuario_id)
+    ativos_desvalorizados = ativosController.ativos_desvalorizados(usuario_id)
+
+    return render_template("./painel/mapa_carteira.html", 
+                           current_route=current_route,
+                           valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+                           dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+                           valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+                           rentabilidade=f"R$ {rentabilidade:,.2f}",
+                           ativos_valorizados=ativos_valorizados,
+                           ativos_desvalorizados=ativos_desvalorizados)
+
+
+@page_bp.route('/painel/consolidado')
+@login_required
+def consolidado():
+    ativosController = AtivosController()
+    usuario_id = current_user.id
+    current_route = 'consolidado'
     # Calcula o valor atualizado dos investimentos sem alterar o banco
     valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
     
@@ -90,6 +135,7 @@ def consolidado():
 
     return render_template(
         "./painel/carteiraConsolidada.html", 
+        current_route=current_route,
         valor_total_investido=f"R$ {valor_total_investido:,.2f}",
         dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
         valor_atualizado=f"R$ {valor_atualizado:,.2f}",

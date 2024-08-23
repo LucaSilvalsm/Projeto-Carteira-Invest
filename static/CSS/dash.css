@@ -382,3 +382,62 @@ body {
 }
 
 
+/* ============ CarteiraConsolidadas ============ */
+.dashboard-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dashboard-content {
+  flex: 1;
+  margin-right: 20px;
+}
+#nav-container {
+  width: 250px;
+  background-color: var(--cor6);
+  color: white;
+  border-radius: 8px;
+  position: sticky;
+  margin-top: 100px;
+  text-align: center;
+  
+}
+
+#tags-title, #categories-title {
+  font-size: 18px;
+  color: white;
+  background-color: var(--cor5);
+  padding: 15px;
+ 
+  height: fit-content;
+  font-weight: 600;
+}
+
+#tag-list, #categories-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+  color: white;
+}
+
+#tag-list li, #categories-list li {
+  margin-bottom: 8px;
+  color: white;
+ 
+}
+#tag-list li:hover, #categories-list li:hover {
+  border-left: 8px solid white;
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+#tag-list a, #categories-list a {
+  text-decoration: none;
+  color: white;
+  font-weight: 400;
+}
+

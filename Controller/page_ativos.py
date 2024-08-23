@@ -28,7 +28,7 @@ def cadastrar():
         # Verificar se o usuário selecionou pelo menos um setor
         if not setor:
             flash('Por favor, selecione pelo menos um setor.', 'error')
-            return redirect(url_for('page_bp.ativos'))
+            return redirect(url_for('page_bp.painel/adicionar_ativos'))
 
         quantidade = int(request.form['quantidade'])
         preco_medio = float(request.form['preco'])  # Corrigido para 'preco'

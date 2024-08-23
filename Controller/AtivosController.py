@@ -25,6 +25,9 @@ class AtivosController:
     def todos_ativos_por_usuario(self, usuario_id):
         return self.dao.todos_ativos_por_usuario(usuario_id)
     
+    def todos_ativos_por_usuario_atualizado(self, usuario_id):
+        return self.dao.todos_ativos_por_usuario_atualizado(usuario_id)
+    
     def soma_dividendos_recebidos(self, usuario_id):
         return self.dao.soma_dividendos_recebidos(usuario_id)
     
@@ -47,3 +50,13 @@ class AtivosController:
     
     def atualizar_cotacoes(self, usuario_id):
         return self.dao.atualizar_cotacoes(usuario_id)
+    
+    
+    def ativos_valorizados(self, usuario_id):
+        return self.dao.valor_ativos_valorizados(usuario_id)
+    
+    def ativos_desvalorizados(self, usuario_id):
+        return self.dao.valor_ativos_desvalorizados(usuario_id)
+    
+    def dividendos_por_ativo(self, usuario_id):
+        return self.dao.dividendos_por_ativo(usuario_id)
