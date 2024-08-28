@@ -141,3 +141,10 @@ def consolidado():
         valor_atualizado=f"R$ {valor_atualizado:,.2f}",
         rentabilidade_real=f"{rentabilidade_real:.2f}%"
     )
+
+
+@page_bp.route("/painel/dividendos")
+@login_required
+
+def dividendos():
+    return render_template("./painel/dividendos.html")

@@ -14,6 +14,10 @@ class Ativos(db.Model):
     dividendos = db.Column(db.Float, nullable=False)
     preco_pessoal = db.Column(db.Float, nullable=False)
     
+    # Dentro da classe Ativos
+    
+    precos_teto = db.relationship('Preco_teto', backref='ativo', lazy=True)
+    
     def __init__(self, nome_ativo, ticket_ativo, categoria, setor, usuario_id, quantidade, preco_medio, dividendos, preco_pessoal):
         self.nome_ativo = nome_ativo
         self.ticket_ativo = ticket_ativo

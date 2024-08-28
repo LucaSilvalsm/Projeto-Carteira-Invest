@@ -10,7 +10,9 @@ class Usuario(db.Model):
     senha = db.Column(db.String(100), nullable=False)
     cpf = db.Column(db.String(11), unique=True, nullable=False)
     
-    ativos = db.relationship('Ativos', backref='usuario', lazy=True)
+    ativos = db.relationship('Ativos', backref='proprietario', lazy=True)
+    rendimentos = db.relationship('Rendimentos', backref='beneficiario', lazy=True)
+    precos_teto = db.relationship('Preco_teto', backref='investidor', lazy=True)
     
     def __init__(self, nome, sobrenome, email, senha, cpf):
         self.nome = nome

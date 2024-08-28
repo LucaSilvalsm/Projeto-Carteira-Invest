@@ -12,7 +12,7 @@ Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo
 - Gráficos Interativos: Visualize os dados da carteira com gráficos dinâmicos.
 - Separação por Ativos: Categorize os ativos por tipo (FIIs, Ações, ETFs, Renda Fixa, Crypto).
 - Dashboard: Painel centralizado exibindo métricas-chave da carteira.
-- Card: Pequenos card da carteira que informa se o ativo esta dando prejuijo ou lucro  na carteira
+- Card: Pequenos card da carteira que informa se o ativo esta dando prejuizo ou lucro  na carteira
 - Comparativos: Pelos dashboards da carteira o usuario consegue comparar os ativos com o seu P.M com a carteira atualizada pela cotação
 - Valorização: Acompanhar o valor de mercado atual da carteira.
 - Rentabilidade: Calcular e exibir a rentabilidade dos ativos.

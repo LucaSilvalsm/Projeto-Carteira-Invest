@@ -393,6 +393,21 @@ body {
   flex: 1;
   margin-right: 20px;
 }
+
+.aside-container #menu-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaçamento entre os asides */
+  width: 250px;
+  background-color: var(--cor6);
+  color: white;
+  border-radius: 8px;
+  position: sticky;
+  margin-top: 100px;
+  text-align: center;
+  
+}
+
 #nav-container {
   width: 250px;
   background-color: var(--cor6);
@@ -409,7 +424,7 @@ body {
   color: white;
   background-color: var(--cor5);
   padding: 15px;
- 
+  border-radius: 8px;
   height: fit-content;
   font-weight: 600;
 }
