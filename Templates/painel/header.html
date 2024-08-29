@@ -26,7 +26,7 @@
             <a class="{{ 'sidebar-active' if current_route == 'consolidado' else '' }}" href="/painel/consolidado"><i class='bx bxs-report'></i> Relatorio dos Ativos</a>
             <a href="#"><i class='bx bxs-report'></i> Relatorio de Distribuição</a>
             <a href="#"><i class='bx bxs-report'></i> Relatorio de Valorização</a>
-            <a href="#"><i class='bx bxs-report'></i> Relatorio de Rentabilidade  </a>
+           
             
             <br/>
             <hr class="dash">
@@ -42,7 +42,7 @@
 
             <h3> Carteira</h3>
             <a href="#"><i class='bx bxs-report'></i> Distribuição da  Carteira</a>
-            <a href="/painel/dividendos"><i class='bx bxs-report'></i> Carteira de Dividendos </a>
+            <a class="{{ 'sidebar-active' if current_route == 'carteira dividendos' else '' }}"href="/painel/dividendos"><i class='bx bxs-report'></i> Carteira de Dividendos </a>
             <a class="{{ 'sidebar-active' if current_route == 'mapa_ativos' else '' }}" href="/painel/mapa_da_carteira"><i class='bx bxs-report'></i> Mapa da Carteira</a>
                  
             <br/>

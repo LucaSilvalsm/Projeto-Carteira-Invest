@@ -11,9 +11,11 @@ import graficos as graficos
 
 
 # Importando blueprints
-from Controller.page_controller import page_bp
-from Controller.page_usuario import user_bp
-from Controller.page_ativos import ativos_bp
+from Routes.page_controller import page_bp
+from Routes.page_usuario import user_bp
+from Routes.page_ativos import ativos_bp
+from Routes.page_rendimentos import rendimentos_bp
+
 
 # Importar a instância do banco de dados
 from Model import db, Usuario
@@ -45,6 +47,10 @@ dash_app.callback(Output('grafico-cotacao', 'figure'), [Input('grafico-cotacao',
 dash_app.callback(Output('grafico-setor', 'figure'), [Input('grafico-setor', 'id')])(graficos.grafico_setor)
 dash_app.callback(Output('grafico-fundos', 'figure'), [Input('grafico-fundos', 'id')])(graficos.grafico_fundos)
 dash_app.callback(Output('grafico-dividendo', 'figure'), [Input('grafico-dividendo', 'id')])(graficos.grafico_dividendo)
+dash_app.callback(Output('grafico-dividendos-mes', 'figure'), [Input('grafico-dividendos-mes', 'id')])(graficos.grafico_dividendos_por_mes)
+dash_app.callback(Output('grafico-dividendos-por-ano', 'figure'), [Input('grafico-dividendos-por-ano', 'id')])(graficos.grafico_dividendos_por_ano)
+
+
 
 
 
@@ -55,6 +61,8 @@ db.init_app(app)
 app.register_blueprint(page_bp)
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(ativos_bp, url_prefix='/ativos')
+app.register_blueprint(rendimentos_bp, url_prefix='/rendimentos')
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)

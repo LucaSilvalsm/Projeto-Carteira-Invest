@@ -32,7 +32,7 @@
         <div class="box-info-single" id="rentabilidade">
             <div class="info-text">
                 <h3>Rentabilidade <i class="fa-solid fa-money-check-dollar"></i></h3>
-                <p>{{ rentabilidade_real }}</p>
+                <p>{{ rentabilidade }}</p>
             </div>
         </div>
         <div class="box-info-single" id="dividendos">
@@ -58,9 +58,15 @@
             </div>
             <div class="card grafico-acao">
                 <a href="#" class="title-link">
+                    <h2 class="page-title">Evolução dos dividendos por ano<i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
+                </a>
+                <iframe src="/dashboard/grafico-dividendos-por-ano" style="width:100%; height:400px; border:none;"></iframe>
+            </div>
+            <div class="card grafico-acao">
+                <a href="#" class="title-link">
                     <h2 class="page-title">Evolução dos dividendos <i class="fa-solid fa-arrow-up-right-from-square"></i></h2>
                 </a>
-                <iframe src="/dashboard/grafico-setor" style="width:100%; height:400px; border:none;"></iframe>
+                <iframe src="/dashboard/grafico-dividendos-mes" style="width:100%; height:400px; border:none;"></iframe>
             </div>
         </div>
 
@@ -69,7 +75,7 @@
             <aside id="menu-aside">
                 <h3 id="tags-title">Menu</h3>
                 <ul id="tag-list">
-                    <li><a href="#">Adicionar Dividendos</a></li>
+                    <li><a href="#"  id="openModalBtn">Adicionar Dividendos</a></li>
                     <li><a href="#">Remover</a></li>
                 </ul>
             </aside>
@@ -97,6 +103,57 @@
             </aside>
         </div>
     </div>
+    <!-- Modal -->
+<div id="dividendoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Adicionar Dividendo</h2>
+        <form id="adicionarDividendoForm" action="{{ url_for('rendimentos_bp.adicionar') }}" method="POST">
+            <div class="form-group">                
+                <label for="ticketAtivo">Selecione o Ativo:</label>
+                
+                <select id="ticketAtivo" name="ticket_ativo" class="form-control">
+                    <option value="">Selecione o Ativo</option>
+                    {% for ativo in ativos %}                    
+                    <option value="{{ ativo.ticket_ativo }}" name="{{ ativos.ticket_ativo }}">{{ ativo.ticket_ativo }} </option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label for="dividendo_recebido">Dividendo Recebido:</label>
+                <input type="text"  id="dividendo_recebido" name="dividendo_recebido" placeholder="Coloque nesse formato ex: 10.20 " required class="form-control">
+                <label for="data_dividendo">Data do Recebimento:</label>
+                <input type="date"  id="data_dividendo" name="data_dividendo"  required class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary card-btn">Adicionar</button>
+        </form>
+    </div>
+</div>
 </div> <!-- FIM Content -->
+<script>
+    // Obtém os elementos
+    var modal = document.getElementById("dividendoModal");
+    var btn = document.getElementById("openModalBtn");
+    var span = document.getElementsByClassName("close-btn")[0];
+
+    // Quando o usuário clicar no botão, abre o modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Quando o usuário clicar no 'x', fecha o modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Quando o usuário clicar fora do modal, fecha o modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
 
 {% endblock %}

@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from flask import request,flash
 
 from Controller.AtivosController import AtivosController
+from Controller.RendimentosController import RendimentosController
 import locale
 
 
@@ -42,7 +43,7 @@ def painel():
     current_route = 'painel'
     ativosController = AtivosController()
     usuario_id = current_user.id
-
+    rendimentoController = RendimentosController()
     # Calcula o valor atualizado dos investimentos sem alterar o banco
     valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
     
@@ -50,7 +51,8 @@ def painel():
     valor_total_investido = ativosController.valor_total_investido(usuario_id)
     
     # Calcula os dividendos recebidos
-    dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
+    dividendo_recebidos = rendimentoController.soma_dividendos_totais(usuario_id)
+
     
     # Calcula a rentabilidade (valor atualizado - valor total investido)
     rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
@@ -81,6 +83,7 @@ def ativos():
 def mapa():
     current_route = 'mapa_ativos'
     ativosController = AtivosController()
+    rendimentosController = RendimentosController()
     usuario_id = current_user.id
 
     # Calcula o valor atualizado dos investimentos sem alterar o banco
@@ -90,7 +93,7 @@ def mapa():
     valor_total_investido = ativosController.valor_total_investido(usuario_id)
     
     # Calcula os dividendos recebidos
-    dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
+    dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
     
     # Calcula a rentabilidade (valor atualizado - valor total investido)
     rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
@@ -112,6 +115,7 @@ def mapa():
 @login_required
 def consolidado():
     ativosController = AtivosController()
+    rendimentosController = RendimentosController()
     usuario_id = current_user.id
     current_route = 'consolidado'
     # Calcula o valor atualizado dos investimentos sem alterar o banco
@@ -121,7 +125,8 @@ def consolidado():
     valor_total_investido = ativosController.valor_total_investido(usuario_id)
     
     # Calcula os dividendos recebidos
-    dividendo_recebidos = ativosController.soma_dividendos_recebidos(usuario_id)
+    dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
+
     
     # Calcula a rentabilidade (valor atualizado - valor total investido)
     rentabilidade = valor_atualizado + dividendo_recebidos - valor_total_investido
@@ -147,4 +152,23 @@ def consolidado():
 @login_required
 
 def dividendos():
-    return render_template("./painel/dividendos.html")
+    ativosController = AtivosController()
+    current_route = 'carteira dividendos'
+    rendimentosController = RendimentosController()
+    usuario_id = current_user.id
+    dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
+    # Calcula o valor atualizado dos investimentos sem alterar o banco
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
+    
+    # Calcula o valor total investido originalmente
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    
+    rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
+
+    ativos = ativosController.buscar_ativos_por_usuario(usuario_id)
+    return render_template("./painel/dividendos.html",ativos=ativos,
+                            dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+                            rentabilidade=f"R$ {rentabilidade:,.2f}",
+                            valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+                            valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+                            current_route=current_route)

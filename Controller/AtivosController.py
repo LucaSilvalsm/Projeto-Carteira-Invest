@@ -10,17 +10,26 @@ class AtivosController:
     def incluir(self, ativo):
         return self.dao.incluir(ativo)
     
+    def  buscar_id_ativo_por_ticket(self, ticket_ativo, usuario_id):
+        return self.dao.buscar_id_ativo_por_ticket(ticket_ativo, usuario_id)
+    
     def alterar(self, ativo):
         return self.dao.alterar(ativo)
     
     def excluir(self, ativo_id):
         return self.dao.excluir(ativo_id)
     
+    def buscar_ativos_por_usuario(self,usuario_id):
+        return self.dao.buscar_ativos_por_usuario(usuario_id)
+    
     def buscar_ativo_por_setor(self, usuario_id, setor):
         return self.dao.buscar_ativo_por_setor(usuario_id, setor)
     
     def buscar_ativo_por_categoria(self, usuario_id):
         return self.dao.buscar_ativo_por_categoria(usuario_id)
+    
+    def buscar_ativo_por_categoria_atualizado(self, usuario_id):
+        return self.dao.buscar_ativo_por_categoria_atualizado(usuario_id)
     
     def todos_ativos_por_usuario(self, usuario_id):
         return self.dao.todos_ativos_por_usuario(usuario_id)
@@ -36,10 +45,7 @@ class AtivosController:
     
     def ativos_por_categoria(self, categoria):
         return self.dao.ativos_por_categoria(categoria)
-    def ativos_acao(self):
-        return self.ativos_por_categoria("Ação")
-    def ativos_fiis(self):
-        return self.ativos_fiis("FIIs")
+  
     def valor_investido_por_setor_acao(self, usuario_id):
         return self.dao.valor_investido_por_setor_acao(usuario_id)
 

@@ -21,6 +21,19 @@ class AtivosDAO:
         finally:
             session.close()
 
+    def buscar_id_ativo_por_ticket(self, ticket_ativo, usuario_id):
+        session = self.Session()
+        try:
+            ativo = session.query(Ativos.id).filter(Ativos.ticket_ativo == ticket_ativo, Ativos.usuario_id == usuario_id).first()
+            if ativo:
+                print(f"Ativo encontrado: ID={ativo.id}, Ticket={ticket_ativo}, UsuarioID={usuario_id}")
+            else:
+                print(f"Nenhum ativo encontrado para Ticket={ticket_ativo} e UsuarioID={usuario_id}")
+            return ativo.id if ativo else None
+        finally:
+            session.close()
+
+
     def alterar(self, ativo):
         session = self.Session()
         try:
@@ -74,6 +87,39 @@ class AtivosDAO:
         
         finally:
             session.close()
+    def buscar_ativo_por_categoria_atualizado(self, usuario_id):
+        session = self.Session()
+        try:
+            categorias = ["Ação", "FIIs", "ETF", "Renda Fixa"]
+            resultados = {}
+
+            for categoria in categorias:
+                ativos = session.query(Ativos).filter(Ativos.usuario_id == usuario_id, Ativos.categoria == categoria).all()
+                total_categoria = 0
+
+                for ativo in ativos:
+                    if categoria != "Renda Fixa":
+                        # Obtém a cotação atual do ticket usando yfinance
+                        ticker = yf.Ticker(ativo.ticket_ativo)
+                        historico = ticker.history(period='1d')
+
+                        if not historico.empty:
+                            cotacao_atual = float(historico['Close'].iloc[0])
+                        else:
+                            cotacao_atual = ativo.preco_medio  # Usa o preço médio se não conseguir a cotação atual
+                    else:
+                        cotacao_atual = ativo.preco_medio  # Renda Fixa não precisa de atualização, usa o preço médio
+
+                    # Calcula o valor total do ativo baseado na cotação atual ou no preço médio
+                    valor_total = ativo.quantidade * cotacao_atual
+                    total_categoria += valor_total
+
+                resultados[categoria] = total_categoria
+
+            return resultados
+
+        finally:
+            session.close()
 
     def todos_ativos_por_usuario(self, usuario_id):
         session = self.Session()
@@ -115,12 +161,7 @@ class AtivosDAO:
             session.close()
             
     
-    def soma_dividendos_recebidos(self, usuario_id):
-        session = self.Session()
-        try:
-            return session.query(func.sum(Ativos.dividendos)).filter(Ativos.usuario_id == usuario_id).scalar() or 0
-        finally:
-            session.close()
+ 
     
     def valor_total_investido(self, usuario_id):
         session = self.Session()
@@ -131,35 +172,76 @@ class AtivosDAO:
         finally:
             session.close()
 
-    def ativos_por_categoria(self,usuario_id, categoria):
+    def ativos_por_categoria(self, categoria):
         session = self.Session()
         try:
             ativos = session.query(Ativos).filter(Ativos.categoria == categoria).all()
             resultado = {}
+
             for ativo in ativos:
-                valor_total = ativo.quantidade * ativo.preco_medio
+                if categoria != "Renda Fixa":
+                    # Obtém a cotação atual do ticket usando yfinance
+                    ticker = yf.Ticker(ativo.ticket_ativo)
+                    historico = ticker.history(period='1d')
+
+                    if not historico.empty:
+                        cotacao_atual = float(historico['Close'].iloc[0])
+                    else:
+                        cotacao_atual = ativo.preco_medio  # Usa o preço médio se não conseguir a cotação atual
+                else:
+                    cotacao_atual = ativo.preco_medio  # Renda Fixa não precisa de atualização, usa o preço médio
+
+                # Calcula o valor total do ativo baseado na cotação atual ou no preço médio
+                valor_total = ativo.quantidade * cotacao_atual
                 resultado[ativo.ticket_ativo] = valor_total
+
             return resultado
+
         finally:
             session.close()
     
     def valor_investido_por_setor(self, usuario_id, categoria):
         session = self.Session()
         try:
-            setores = session.query(Ativos.setor).filter(Ativos.usuario_id == usuario_id, Ativos.categoria == categoria).distinct().all()
+            setores = session.query(Ativos.setor).filter(
+                Ativos.usuario_id == usuario_id, 
+                Ativos.categoria == categoria
+            ).distinct().all()
+
             resultados = {}
 
             for setor, in setores:
-                total_investido_setor = session.query(
-                    func.sum(Ativos.quantidade * Ativos.preco_medio)
-                ).filter(
+                # Inicializa o total investido para o setor atual
+                total_investido_setor = 0
+
+                # Busca todos os ativos no setor e categoria especificados
+                ativos = session.query(Ativos).filter(
                     Ativos.usuario_id == usuario_id,
                     Ativos.setor == setor,
                     Ativos.categoria == categoria
-                ).scalar() or 0
+                ).all()
+
+                for ativo in ativos:
+                    if categoria != "Renda Fixa":
+                        # Obtém a cotação atual do ticket usando yfinance
+                        ticker = yf.Ticker(ativo.ticket_ativo)
+                        historico = ticker.history(period='1d')
+
+                        if not historico.empty:
+                            cotacao_atual = float(historico['Close'].iloc[0])
+                        else:
+                            cotacao_atual = ativo.preco_medio  # Usa o preço médio se não conseguir a cotação atual
+                    else:
+                        cotacao_atual = ativo.preco_medio  # Renda Fixa não precisa de atualização, usa o preço médio
+
+                    # Calcula o valor total do ativo baseado na cotação atual ou no preço médio
+                    valor_total = ativo.quantidade * cotacao_atual
+                    total_investido_setor += valor_total
+
                 resultados[setor] = total_investido_setor
 
             return resultados
+
         finally:
             session.close()
     def valor_investido_atualizado(self, usuario_id):
@@ -260,11 +342,7 @@ class AtivosDAO:
 
     
 
-    def ativos_acao(self):
-        return self.ativos_por_categoria("Ação")
-
-    def ativos_fiis(self):
-        return self.ativos_por_categoria("FIIs")
+    
 
     def valor_investido_por_setor_acao(self, usuario_id):
         return self.valor_investido_por_setor(usuario_id, "Ação")
@@ -295,14 +373,4 @@ class AtivosDAO:
         finally:
             session.close()
             
-    def dividendos_por_ativo(self, usuario_id):
-            session = self.Session()
-            # Supondo que `session` é a sessão do SQLAlchemy
-            query = session.query(Ativos.ticket_ativo, db.func.sum(Ativos.dividendos)).filter_by(usuario_id=usuario_id).group_by(Ativos.ticket_ativo).all()
-            
-            # O retorno dessa query parece ser uma lista de tuplas, onde cada tupla contém (ticket_ativo, soma_dos_dividendos)
-            # Verifique se você está manipulando isso corretamente
-            
-            # Exemplo de manipulação correta dos dados
-            resultado = {ticket: total for ticket, total in query}
-            return resultado
+  
