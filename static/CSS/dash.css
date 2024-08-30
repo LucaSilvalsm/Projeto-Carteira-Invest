@@ -492,3 +492,99 @@ body {
   cursor: pointer;
 }
 
+/* Estilo para a pagina do preco teto*/
+
+ul .text-li{
+ 
+  list-style: none;
+}
+
+.link-exe{
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+}
+
+.link-exe:hover{
+  text-decoration: none;
+  color: black;
+}
+
+.li-preco{
+  list-style-type: none;
+}
+
+
+
+/* Arquivo CSS: dash.css */
+
+.positive-margin {
+  background-color: green; /* Verde claro para valores positivos */
+  color: white; /* Texto verde escuro */
+  
+  text-align: center;
+  font-weight: bolder;
+}
+
+.negative-margin {
+  background-color: red; /* Vermelho claro para valores negativos */
+  color: black; /* Texto vermelho escuro */
+  padding: 5px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.no-margin {
+  background-color: var(--cor4); /* Cinza claro para valores 'N/A' */
+  color: #6c757d; /* Texto cinza escuro */
+  
+ 
+}
+
+/* Estilo base para as linhas da tabela */
+.planilha {
+  border-radius: 10px; /* Ajuste o valor conforme necessário */
+  overflow: hidden; /* Garante que o conteúdo não sobreponha as bordas arredondadas */
+  border: 3px solid black; /* Adiciona uma borda para destacar o contêiner (opcional) */
+  background-color: #fff; /* Cor de fundo para o contêiner (opcional) */
+  
+}
+
+.table {
+  border-collapse: separate; /* Garante que as bordas arredondadas funcionem */
+  border-radius: 10px; /* Ajuste o valor conforme necessário */
+  overflow: hidden; /* Garante que o conteúdo da tabela não sobreponha as bordas arredondadas */
+ 
+}
+
+.table thead {
+  background-color: #f9f9f9; /* Cor de fundo opcional para o cabeçalho */
+}
+
+/* Alternância de cor das linhas */
+.table tbody tr {
+  transition: background-color 0.3s ease;
+  
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+  
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table tbody tr:hover {
+  background-color: #ddd;
+}
+.table td, .table th {
+  text-align: center; /* Centraliza o texto */
+}
+.action {
+  text-align: center; /* Centraliza o texto apenas nesta coluna */
+}
+.table thead th {
+  text-align: center; /* Centraliza o texto no cabeçalho */
+}

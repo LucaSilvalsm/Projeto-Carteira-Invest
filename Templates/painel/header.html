@@ -49,16 +49,16 @@
             <hr class="dash">
 
             <h3> Estudos</h3>
-            <a href="#"><i class='bx bxs-report'></i >Calcular Preco medio</a>
-            <a href="#"><i class='bx bxs-report'></i> Calcular preço teto</a>
-            <a href="/"><i class='bx bxs-report'></i> Home Site da Loja</a>
+            <a class="{{ 'sidebar-active' if current_route == 'preco_teto' else '' }}" href="/painel/preco_teto"><i class='bx bxs-report'></i > Preço teto</a>
+            <a class="{{ 'sidebar-active' if current_route == 'calcular_preco' else '' }}"  href="/painel/calcular_preco"><i class='bx bxs-report'></i> Preço Teto/Justo da Carteira</a>
+            <a href="#"><i class='bx bxs-report'></i> Relatorio de Preço teto</a>
             
             <br/>
             <hr class="dash">
 
             <h3> Carteira para estuddos</h3>
-            <a href="#"><i class='bx bxs-report'></i> Adicionar Ativo para Estudos</a>
-            <a href="#"><i class='bx bxs-report'></i> Ver preço teto </a>
+            <a href="/painel/carteira_estudos"><i class='bx bxs-report'></i> Adicionar Ativo para Estudos</a>
+            <a href=""><i class='bx bxs-report'></i> Ver preço teto </a>
             <a href="#"><i class='bx bxs-report'></i> Mapa de Estudo</a>
                  
             <br/>

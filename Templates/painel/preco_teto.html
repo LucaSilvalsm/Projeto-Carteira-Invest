@@ -1,0 +1,244 @@
+{% extends 'painel/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/dash.css') }}">
+
+<div class="content">
+    <div class="titulo-secao">
+        {% set messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <div class="msg-container">
+            {% for category, message in messages %}
+            <div class="msg {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h3>Dashboard</h3>
+        <br />
+        <hr class="dash">
+        <p><i class="fa-solid fa-house"></i> / Dashboard de Investimento</p>
+    </div>
+
+    <div class="box-info">
+        <div class="box-info-single" id="valorizacao">
+            <div class="info-text">
+                <h3>Valorização</h3>
+                <p>{{ valor_atualizado }}</p>
+            </div>
+            <i class="fa-solid fa-money-check-dollar"></i>
+        </div>
+        <div class="box-info-single" id="rentabilidade">
+            <div class="info-text">
+                <h3>Rentabilidade <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p>{{ rentabilidade }}</p>
+            </div>
+        </div>
+        <div class="box-info-single" id="dividendos">
+            <div class="info-text">
+                <h3>Dividendos <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p>{{ dividendo_recebidos }}</p>
+            </div>
+        </div>
+        <div class="box-info-single" id="investido">
+            <div class="info-text">
+                <h3>Valor Investido <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p>R$ {{ valor_total_investido }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Novo bloco para os gráficos e aside -->
+    <div class="dashboard-layout">
+        <div class="dashboard-content">
+            <div class="card grafico-tipoAtivo">
+                <h2 class="page-title">Preço teto (ou preço alvo) de uma ação</h2>
+                <p>
+                    Numa empresa de análise de mercado financeiro, quando a recomendação de compra é dada para
+                    determinada ação, normalmente o analista que a desenvolveu indica um valor de grande importância
+                    para o investidor: o preço teto. Considerado um fator importante em alguns modelos de valuation, o
+                    preço teto garante uma margem de segurança para quem compra ações pensando no longo prazo.
+                </p>
+                <h2 class="page-title">O que é preço teto?</h2>
+                <p>
+                    O preço teto é o preço limite para a compra de uma ação, calculado com base em indicadores
+                    fundamentalistas e que visa garantir ao investidor uma margem de segurança no investimento. Desta
+                    forma, o preço teto seria o valor máximo de compra para uma ação, de acordo com determinada análise
+                    de sobre a empresa.Normalmente, este valor é indicado por casas de análise de mercado fnanceiro e
+                    por investidores que acreditam na metodologia do Value Investing para escolher seus investimentos. O
+                    Valuen utiliza o preço teto em sua análise para ajudá-lo a selecionar as melhores opções do momento,
+                    levando em consideração este valor e o balanceamento de carteira.
+                </p>
+            </div>
+            <div class="card grafico-acao">
+                <h2 class="page-title">Quem foi Décio Bazin</h2>
+                <p>
+                    Décio Bazin, renomado jornalista econômico e um dos maiores investidores brasileiros, deixou um
+                    legado inestimável na educação financeira e no mercado de ações. Com uma carreira que começou na
+                    década de 1960, Bazin tornou-se uma figura icônica, aplicando e disseminando seus conhecimentos em
+                    investimentos através de publicações na Gazeta Mercantil e na revista Balanço Financeiro. Sua
+                    trajetória é uma fonte de inspiração e aprendizado para todos que desejam navegar pelo complexo
+                    mundo dos investimentos.
+                    Décio Bazin foi um investidor e escritor brasileiro responsável por desenvolver um método inovador
+                    para avaliar ações e investir no mercado de capitais. Sua abordagem, conhecida como Método Bazin,
+                    tem sido amplamente adotada por investidores em busca de melhores retornos. Bazin acreditava na
+                    importância de analisar a qualidade das empresas e suas perspectivas de crescimento a longo prazo,
+                    em vez de se concentrar apenas nos movimentos do mercado de ações a curto prazo. Ele também
+                    enfatizava a importância dos dividendos, o que o levou a desenvolver sua própria fórmula para
+                    determinar o preço justo das ações com base nos dividendos pagos. Seu livro, <strong>Faça Fortuna
+                        com Ações</strong>, publicado em 1992, é considerado uma leitura obrigatória para quem deseja
+                    entender melhor seus princípios de investimento e como aplicá-los na prática.
+                    Bazin é frequentemente comparado a investidores de sucesso, como Warren Buffett, devido à sua
+                    abordagem de investimento focada no valor.
+                </p>
+
+
+            </div>
+            <div class="card grafico-acao">
+                <h2 class="page-title">O que é o Método Bazin ? </h2>
+                <p>O Método Bazin é uma abordagem de investimento baseada na análise do preço justo das ações, levando
+                    em consideração os dividendos pagos pelas empresas. Décio Bazin acreditava que os dividendos eram um
+                    indicador confiável da saúde financeira e do
+                    potencial de crescimento das empresas. A ideia principal por trás do método é buscar empresas que
+                    paguem bons dividendos e que estejam
+                    sendo negociadas por um preço inferior ao seu valor justo. Isso permite que o investidor obtenha
+                    retornos atraentes a longo prazo e minimize os riscos.
+                    São 5 os mandamentos do Método Bazin:
+                </p>
+                <ul>
+                    <li class="text-li liquidez"><strong>Liquidez: </strong> Bazin recomenda aos investidores a escolher
+                        apenas ações que possuem boa liquidez, ou seja, que tenham uma boa quantidade de negociações.
+                        Com isso, as empresas menores podem acabar ficando de fora da lista.</li>
+                    <li class="text-li dividend-yield"><strong>Dividend Yield:</strong> Décio acredita que devemos
+                        investir em ações boas pagadoras de dividendos, mas não só isso, esse fluxo de dividendos deve
+                        ser constante. Pelo método Bazin, os investidores devem investir em empresas com um Dividend
+                        Yield na casa dos 6% ao ano nos últimos 3 pagamentos.</li>
+                    <li class="text-li noticias"><strong>Notícias: </strong>Esse é um dos fatores qualitativos do
+                        método. Décio acredita veemente que qualquer notícia ruim sobre a empresa deve ser vista como um
+                        sinal de alerta máximo.</li>
+                    <li class="text-li"><strong>Endividamento:</strong> Esse é um ponto também de muita importância.
+                        Bazin acredita que a preocupação com o nível de endividamento das empresas deve ser mantida
+                        sempre à vista. Ele diz em seu livro que preza por um endividamento moderado.</li>
+                    <li class="text-li"><strong>Rebalanceamento:</strong> Pelo Método Bazin, o rebalanceamento da
+                        carteira deve ser semestral, considerando todos os filtros que falamos mais acima. Ele diz que
+                        se uma empresa passa dois semestres seguidos com o dividend yield abaixo dos 6% ao ano, ela deve
+                        ser retirada da carteira através da venda.</li>
+                </ul>
+
+
+
+            </div>
+            <div class="card grafico-acao">
+                <h2 class="page-title">Evolução dos Dividendos</h2>
+                <p>
+                    Calcular o preço justo de uma ação pelo Método Bazin é uma tarefa simples e direta. Vamos utilizar um exemplo para facilitar a compreensão do processo. Suponha que você esteja analisando uma empresa que paga um dividendo anual de R$ 3,00 por ação. <br>
+                    <strong>Encontre o dividend yield desejado:</strong> Primeiro, determine o dividend yield que você considera atraente. Bazin recomendava um mínimo de 6%. Neste exemplo, vamos usar 6%. <br>
+                    <strong>Calcule o preço justo:</strong> Divida o dividendo anual por ação pelo dividend yield desejado. Neste caso, divida R$ 3,00 por 0,06 (6%). O resultado é R$ 50,00. Esse valor representa o preço justo da ação segundo o Método Bazin. Agora que você sabe calcular o preço justo, compare-o com o preço atual da ação no mercado. Se o preço atual for inferior ao preço justo, a ação pode ser considerada subvalorizada e, portanto, uma oportunidade de investimento segundo o Método Bazin.  
+                    Lembre-se de que, além de avaliar o preço justo, é importante considerar o Payout Ratio e analisar outros aspectos financeiros e qualitativos da empresa, como governança corporativa, posição de mercado e perspectivas de crescimento.
+                    A seguir, vamos ver um exemplo na prática com uma ação após ela passar por todos os critérios de escolha pelo <strong>Método Bazin</strong>, utilizando as ações da companhia <i><strong>Transmissora Aliança de Energia Elétrica S.A. – TAESA</strong></i>. <br>
+                    Nesse exemplo, vamos retirar os dados da companhia no site <a class="link-exe" href="https://investidor10.com.br/" target="_blank" rel="noopener noreferrer">Investidor 10</a>. 
+                    <ul>
+                        <li class="li-preco"><strong>Ação: </strong>TAESA</li>                        
+                        <li class="li-preco"><strong>Média do Dividend Yield: </strong>10%</li>
+                        <li class="li-preco"><strong>Média de dividendo pago: </strong>R$ 3,50</li>    
+                        <li class="li-preco"><strong>Fórmula: </strong><i><strong>Preço teto = Média de dividendo pago / Média do Dividend Yield</strong></i></li>              
+                        <li class="li-preco"><strong>Preço teto: </strong>R$ 35,00</li>           
+                    </ul>
+                </p>
+                <p>
+                    Após essa análise feita pelo <strong>Método Bazin</strong>, você conseguirá determinar se o ativo em estudo atende ao seu critério para ser adicionado à sua carteira de investimento. Por isso, muitos consideram o <strong>Método Bazin</strong> uma ótima ferramenta de auxílio para estudar um ativo.
+                </p>
+            </div>
+            
+        </div>
+
+        <!-- Novo contêiner para os asides -->
+        <div class="aside-container">
+            <aside id="menu-aside">
+                <h3 id="tags-title">Menu</h3>
+                <ul id="tag-list">
+                    <li><a href="#" id="openModalBtn">Adicionar Dividendos</a></li>
+                    <li><a href="#">Remover</a></li>
+                </ul>
+            </aside>
+            <div>
+                <br>
+            </div>
+            <aside id="nav-container">
+                <h3 id="tags-title">SETOR</h3>
+                <ul id="tag-list">
+                    <li><a href="#">AÇÃO</a></li>
+                    <li><a href="#">FIIs</a></li>
+                    <li><a href="#">ETF</a></li>
+                </ul>
+                <h3 id="categories-title">CATEGORIAS</h3>
+                <ul id="categories-list">
+                    <li><a href="#">Eletrico</a></li>
+                    <li><a href="#">Varejo</a></li>
+                    <li><a href="#">Bancos</a></li>
+                    <li><a href="#">Seguradoras</a></li>
+                    <li><a href="#">Fintechs</a></li>
+                    <li><a href="#">Saneamento</a></li>
+                    <li><a href="#">Saúde</a></li>
+                    <li><a href="#">Commodities</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="dividendoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Adicionar Dividendo</h2>
+            <form id="adicionarDividendoForm" action="{{ url_for('rendimentos_bp.adicionar') }}" method="POST">
+                <div class="form-group">
+                    <label for="ticketAtivo">Selecione o Ativo:</label>
+
+                    <select id="ticketAtivo" name="ticket_ativo" class="form-control">
+                        <option value="">Selecione o Ativo</option>
+                        {% for ativo in ativos %}
+                        <option value="{{ ativo.ticket_ativo }}" name="{{ ativos.ticket_ativo }}">{{ ativo.ticket_ativo
+                            }} </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="dividendo_recebido">Dividendo Recebido:</label>
+                    <input type="text" id="dividendo_recebido" name="dividendo_recebido"
+                        placeholder="Coloque nesse formato ex: 10.20 " required class="form-control">
+                    <label for="data_dividendo">Data do Recebimento:</label>
+                    <input type="date" id="data_dividendo" name="data_dividendo" required class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary card-btn">Adicionar</button>
+            </form>
+        </div>
+    </div>
+</div> <!-- FIM Content -->
+<script>
+    // Obtém os elementos
+    var modal = document.getElementById("dividendoModal");
+    var btn = document.getElementById("openModalBtn");
+    var span = document.getElementsByClassName("close-btn")[0];
+
+    // Quando o usuário clicar no botão, abre o modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // Quando o usuário clicar no 'x', fecha o modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Quando o usuário clicar fora do modal, fecha o modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+{% endblock %}

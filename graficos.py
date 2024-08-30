@@ -14,26 +14,27 @@ import calendar
 def layout_principal():
     return html.Div([
         dcc.Location(id='url', refresh=False),
+        
         html.Div(id='page-content')
     ])
 
 def display_page(pathname):
     if pathname == '/dashboard/grafico-categoria':
-        return dcc.Graph(id='grafico-categoria')
+        return dcc.Graph(id='grafico-categoria',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-ativos':
-        return dcc.Graph(id='grafico-ativos')
+        return dcc.Graph(id='grafico-ativos',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-setor':
-        return dcc.Graph(id='grafico-setor')
+        return dcc.Graph(id='grafico-setor',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-fundos':
-        return dcc.Graph(id='grafico-fundos')
+        return dcc.Graph(id='grafico-fundos',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-cotacao':
-        return dcc.Graph(id='grafico-cotacao')
+        return dcc.Graph(id='grafico-cotacao',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-dividendo':
-        return dcc.Graph(id='grafico-dividendo')
+        return dcc.Graph(id='grafico-dividendo',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-dividendos-mes':
-        return dcc.Graph(id='grafico-dividendos-mes')
+        return dcc.Graph(id='grafico-dividendos-mes',config={'displayModeBar': False})
     elif pathname == '/dashboard/grafico-dividendos-por-ano':
-        return dcc.Graph(id='grafico-dividendos-por-ano')
+        return dcc.Graph(id='grafico-dividendos-por-ano',config={'displayModeBar': False})
     else:
         return html.Div("404 - Página não encontrada")
 

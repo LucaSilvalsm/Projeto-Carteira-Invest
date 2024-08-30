@@ -13,6 +13,7 @@ class Usuario(db.Model):
     ativos = db.relationship('Ativos', backref='proprietario', lazy=True)
     rendimentos = db.relationship('Rendimentos', backref='beneficiario', lazy=True)
     precos_teto = db.relationship('Preco_teto', backref='investidor', lazy=True)
+    estudos = db.relationship('Estudos', backref='Futuro', lazy=True)
     
     def __init__(self, nome, sobrenome, email, senha, cpf):
         self.nome = nome

@@ -1,0 +1,207 @@
+{% extends 'painel/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/dash.css') }}">
+
+<div class="content">
+    <div class="titulo-secao">
+        {% set messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <div class="msg-container">
+            {% for category, message in messages %}
+            <div class="msg {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h3>Dashboard</h3>
+        <br />
+        <hr class="dash">
+        <p><i class="fa-solid fa-house"></i> / Dashboard de Investimento</p>
+    </div>
+
+    <div class="box-info">
+        <div class="box-info-single" id="valorizacao">
+            <div class="info-text">
+                <h3>Valorização</h3>
+                <p>{{ valor_atualizado }}</p>
+            </div>
+            <i class="fa-solid fa-money-check-dollar"></i>
+        </div>
+        <div class="box-info-single" id="rentabilidade">
+            <div class="info-text">
+                <h3>Rentabilidade <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p>{{ rentabilidade }}</p>
+            </div>
+        </div>
+        <div class="box-info-single" id="dividendos">
+            <div class="info-text">
+                <h3>Dividendos <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p>{{ dividendo_recebidos }}</p>
+            </div>
+        </div>
+        <div class="box-info-single" id="investido">
+            <div class="info-text">
+                <h3>Valor Investido <i class="fa-solid fa-money-check-dollar"></i></h3>
+                <p>R$ {{ valor_total_investido }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Novo bloco para os gráficos e aside -->
+    <div class="dashboard-layout">
+        <div class="dashboard-content">
+            <h2 class="dashboard-title">Sua carteira</h2>
+            
+            <div class="col-md-12">
+                <div class="col-md-12 planilha">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ticket</th>
+                                <th scope="col">Cotação</th>
+                                <th scope="col">Média do Dividend Yield</th>
+                                <th scope="col">Média do Dividendo Pago</th>
+                                <th scope="col" nowrap>Preço Teto</th>
+                                <th scope="col" nowrap>Preço Pessoal</th>
+                                <th scope="col" class="actions-column">Margem de Segurança</th>
+                                <th scope="col" class="actions-column">Margem de Pessoal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket, dados in preco_teto.items() %}
+                            <tr>
+                                <td style="vertical-align: middle;" scope="row">{{ loop.index }}</td>
+                                <td style="vertical-align: middle;">{{ ticket }}</td>
+                                <td style="vertical-align: middle;">
+                                    {{ dados.cotacao_atual if dados.cotacao_atual != 'N/A' else 'N/A' }}
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    {{ dados.media_dividendos if dados.media_dividendos != 'N/A' else 'N/A' }}
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    {{ dados.media_recebido if dados.media_recebido != 'N/A' else 'N/A' }}
+                                </td>
+                                <td style="vertical-align: middle;" nowrap>
+                                    {{ dados.preco_teto_calculado if dados.preco_teto_calculado != 'N/A' else 'N/A' }}
+                                </td>
+                                <td style="vertical-align: middle;" nowrap>
+                                    {{ dados.preco_pessoal if dados.preco_pessoal != 'N/A' else 'N/A' }}
+                                </td>
+                                <td style="vertical-align: middle;" class="action
+                                    {% if dados.margem_de_seguranca != 'N/A' %}
+                                        {{ 'positive-margin' if dados.margem_de_seguranca|replace('%','')|float >= 0 else 'negative-margin' }}
+                                    {% else %}
+                                        'no-margin'
+                                    {% endif %}
+                                ">
+                                    {{ dados.margem_de_seguranca if dados.margem_de_seguranca != 'N/A' else 'N/A' }}
+                                </td>
+                                <td style="vertical-align: middle;" class="action
+                                    {% if dados.margem_de_seguranca != 'N/A' %}
+                                        {{ 'positive-margin' if dados.margem_de_seguranca|replace('%','')|float >= 0 else 'negative-margin' }}
+                                    {% else %}
+                                        'no-margin'
+                                    {% endif %}
+                                ">
+                                    {{ dados.margem_pessoal if dados.margem_pessoal != 'N/A' else 'N/A' }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Novo contêiner para os asides -->
+        <div class="aside-container">
+            <aside id="menu-aside">
+                <h3 id="tags-title">Menu</h3>
+                <ul id="tag-list">
+                    <li><a href="#" id="openModalBtn">Calcular o Preço Teto</a></li>
+                    <li><a href="#">Remover</a></li>
+                </ul>
+            </aside>
+            <div>
+                <br>
+            </div>
+            <aside id="nav-container">
+                <h3 id="tags-title">SETOR</h3>
+                <ul id="tag-list">
+                    <li><a href="#">AÇÃO</a></li>
+                    <li><a href="#">FIIs</a></li>
+                    <li><a href="#">ETF</a></li>
+                </ul>
+                <h3 id="categories-title">CATEGORIAS</h3>
+                <ul id="categories-list">
+                    <li><a href="#">Eletrico</a></li>
+                    <li><a href="#">Varejo</a></li>
+                    <li><a href="#">Bancos</a></li>
+                    <li><a href="#">Seguradoras</a></li>
+                    <li><a href="#">Fintechs</a></li>
+                    <li><a href="#">Saneamento</a></li>
+                    <li><a href="#">Saúde</a></li>
+                    <li><a href="#">Commodities</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="dividendoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Adicionar Dividendo</h2>
+            <form id="adicionarDividendoForm" action="{{ url_for('preco_bp.preco') }}" method="POST">
+
+                <div class="form-group">
+                    <label for="ticketAtivo">Selecione o Ativo:</label>
+
+                    <select id="ticketAtivo" name="ticket_ativo" class="form-control">
+                        <option value="">Selecione o Ativo</option>
+                        {% for ativo in ativos %}
+                        <option value="{{ ativo.ticket_ativo }}" name="{{ ativos.ticket_ativo }}">{{ ativo.ticket_ativo }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="media_dividendos">Média do Dividendos:</label>
+                    <input type="text" id="media_dividendos" name="media_dividendos" placeholder="Ex: 10% == 0.10. Ou  9% == 0.09 " required class="form-control">
+                    <label for="media_recebido">Média do Dividendo Pago:</label>
+                    <input type="text" id="media_recebido" name="media_recebido" placeholder="Coloque no formato de 2.20 " required class="form-control">
+
+                    <label for="preco_pessoal">Preço Teto Pessoal:</label>
+                    <input type="text" id="preco_pessoal" name="preco_pessoal" placeholder="Coloque no formato de 2.20 " required class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary card-btn">Adicionar</button>
+            </form>
+        </div>
+    </div>
+</div> <!-- FIM Content -->
+<script>
+    // Obtém os elementos
+    var modal = document.getElementById("dividendoModal");
+    var btn = document.getElementById("openModalBtn");
+    var span = document.getElementsByClassName("close-btn")[0];
+
+    // Quando o usuário clicar no botão, abre o modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // Quando o usuário clicar no 'x', fecha o modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Quando o usuário clicar fora do modal, fecha o modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

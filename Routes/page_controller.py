@@ -10,6 +10,7 @@ from flask import request,flash
 
 from Controller.AtivosController import AtivosController
 from Controller.RendimentosController import RendimentosController
+from Controller.PrecoController import PrecoController
 import locale
 
 
@@ -172,3 +173,119 @@ def dividendos():
                             valor_atualizado=f"R$ {valor_atualizado:,.2f}",
                             valor_total_investido=f"R$ {valor_total_investido:,.2f}",
                             current_route=current_route)
+    
+    
+@page_bp.route("/painel/preco_teto")
+@login_required
+def preco_teto():
+    ativosController = AtivosController()
+    current_route = 'preco_teto'
+    rendimentosController = RendimentosController()
+    usuario_id = current_user.id
+    dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
+    # Calcula o valor atualizado dos investimentos sem alterar o banco
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
+    
+    # Calcula o valor total investido originalmente
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    
+    rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
+
+    ativos = ativosController.buscar_ativos_por_usuario(usuario_id)
+    return render_template("./painel/preco_teto.html",ativos=ativos,
+                            dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+                            rentabilidade=f"R$ {rentabilidade:,.2f}",
+                            valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+                            valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+                            current_route=current_route)
+    
+
+@page_bp.route("/painel/calcular_preco")
+@login_required
+def calcular_preco():
+    current_route = 'calcular_preco'
+    ativosController = AtivosController()
+    rendimentosController = RendimentosController()
+    usuario_id = current_user.id
+    
+    dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos
+
+    ativos = ativosController.buscar_ativos_por_usuario(usuario_id)
+    
+    precoController = PrecoController()
+    preco_teto_dados = precoController.calcular_preco_teto_por_usuario(usuario_id)
+
+    # Formatar os dados para o HTML
+    # Formatar os dados para o HTML
+    for ticket, dados in preco_teto_dados.items():
+        dados['cotacao_atual'] = f"R$ {dados['cotacao_atual']:.2f}" if dados['cotacao_atual'] != 'N/A' else 'N/A'
+        dados['media_dividendos'] = f"{dados['media_dividendos']:.1f}%"
+        dados['media_recebido'] = f"R$ {dados['media_recebido']:.2f}"
+        dados['preco_pessoal'] = f"R$ {dados['preco_pessoal']:.2f}"
+        dados['margem_pessoal'] = f"{dados['margem_pessoal']:.2f}%"
+        dados['preco_teto_calculado'] = f"R$ {dados['preco_teto_calculado']:.2f}"
+        
+        # Converter margem_de_seguranca para float e formatar como porcentagem
+        try:
+            margem = float(dados['margem_de_seguranca'])
+            dados['margem_de_seguranca'] = f"{margem:.2f}%"
+        except ValueError:
+            dados['margem_de_seguranca'] = 'N/A'
+
+
+    return render_template("./painel/calcular_preco.html",
+                           ativos=ativos,
+                           dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+                           rentabilidade=f"R$ {rentabilidade:,.2f}",
+                           valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+                           valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+                           current_route=current_route,
+                           preco_teto=preco_teto_dados)
+
+@page_bp.route("/painel/carteira_estudos")
+@login_required
+def carteira_estudos():
+    current_route = 'carteira_estudos'
+    ativosController = AtivosController()
+    rendimentosController = RendimentosController()
+    usuario_id = current_user.id
+    
+    dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
+    valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
+    valor_total_investido = ativosController.valor_total_investido(usuario_id)
+    rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos
+
+    ativos = ativosController.buscar_ativos_por_usuario(usuario_id)
+    
+    precoController = PrecoController()
+    preco_teto_dados = precoController.calcular_preco_teto_por_usuario(usuario_id)
+
+    # Formatar os dados para o HTML
+    # Formatar os dados para o HTML
+    for ticket, dados in preco_teto_dados.items():
+        dados['cotacao_atual'] = f"R$ {dados['cotacao_atual']:.2f}" if dados['cotacao_atual'] != 'N/A' else 'N/A'
+        dados['media_dividendos'] = f"{dados['media_dividendos']:.1f}%"
+        dados['media_recebido'] = f"R$ {dados['media_recebido']:.2f}"
+        dados['preco_pessoal'] = f"R$ {dados['preco_pessoal']:.2f}"
+        dados['margem_pessoal'] = f"{dados['margem_pessoal']:.2f}%"
+        dados['preco_teto_calculado'] = f"R$ {dados['preco_teto_calculado']:.2f}"
+        
+        # Converter margem_de_seguranca para float e formatar como porcentagem
+        try:
+            margem = float(dados['margem_de_seguranca'])
+            dados['margem_de_seguranca'] = f"{margem:.2f}%"
+        except ValueError:
+            dados['margem_de_seguranca'] = 'N/A'
+
+
+    return render_template("./painel/carteira_estudo.html",
+                           ativos=ativos,
+                           dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
+                           rentabilidade=f"R$ {rentabilidade:,.2f}",
+                           valor_atualizado=f"R$ {valor_atualizado:,.2f}",
+                           valor_total_investido=f"R$ {valor_total_investido:,.2f}",
+                           current_route=current_route,
+                           preco_teto=preco_teto_dados)
