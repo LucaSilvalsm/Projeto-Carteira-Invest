@@ -16,13 +16,15 @@ Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo
 - Comparativos: Pelos dashboards da carteira o usuario consegue comparar os ativos com o seu P.M com a carteira atualizada pela cotação
 - Valorização: Acompanhar o valor de mercado atual da carteira.
 - Rentabilidade: Calcular e exibir a rentabilidade dos ativos.
-
-### Em Desenvolvimento
-
 - Histórico de Dividendos: Adicionar e visualizar o histórico de dividendos.
 - Preço Teto Pessoal: Definir e acompanhar preços-alvo pessoais para os ativos.
 - Preço Teto: Monitorar os preços dos ativos em relação aos tetos de mercado.
 - Páginas Dedicadas: Criar páginas específicas para visualizações detalhadas de diferentes tipos de ativos.
+
+### Em Desenvolvimento
+
+  
+- Relatorios 
 
 ##
 ### Stack de Tecnologia usada

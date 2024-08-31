@@ -18,7 +18,7 @@ class Ativos(db.Model):
     
     precos_teto = db.relationship('Preco_teto', backref='ativo', lazy=True)
     
-    def __init__(self, nome_ativo, ticket_ativo, categoria, setor, usuario_id, quantidade, preco_medio,   preco_pessoal):
+    def __init__(self, nome_ativo, ticket_ativo, categoria, setor, usuario_id, quantidade, preco_medio):
         self.nome_ativo = nome_ativo
         self.ticket_ativo = ticket_ativo
         self.categoria = categoria

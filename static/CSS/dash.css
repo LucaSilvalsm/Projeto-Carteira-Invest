@@ -416,6 +416,7 @@ body {
   position: sticky;
   margin-top: 100px;
   text-align: center;
+  height: 100%;
   
 }
 
@@ -426,7 +427,6 @@ body {
   padding: 15px;
   border-radius: 8px;
   height: fit-content;
-  font-weight: 600;
 }
 
 #tag-list, #categories-list {
@@ -434,7 +434,23 @@ body {
   padding-left: 0;
   margin-bottom: 20px;
   color: white;
+  height: auto;
 }
+#categories-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+  color: white;
+  height:50px;
+}
+ #categories-list:hover {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+  color: white;
+  height:70px;
+}
+
 
 #tag-list li, #categories-list li {
   margin-bottom: 8px;
