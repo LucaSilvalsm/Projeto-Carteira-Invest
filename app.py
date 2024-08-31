@@ -16,6 +16,7 @@ from Routes.page_usuario import user_bp
 from Routes.page_ativos import ativos_bp
 from Routes.page_rendimentos import rendimentos_bp
 from Routes.page_preco import preco_bp
+from Routes.page_estudos import estudos_bp
 
 
 # Importar a instância do banco de dados
@@ -62,8 +63,10 @@ db.init_app(app)
 app.register_blueprint(page_bp)
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(ativos_bp, url_prefix='/ativos')
-app.register_blueprint(rendimentos_bp, url_prefix='/rendimentos')
+app.register_blueprint(rendimentos_bp, url_prefix='/rendimentos')  
 app.register_blueprint(preco_bp, url_prefix='/preco')
+app.register_blueprint(estudos_bp, url_prefix='/estudos')
+
 
 
 

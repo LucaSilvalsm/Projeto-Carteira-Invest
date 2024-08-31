@@ -1,6 +1,5 @@
 from Model import db 
 
-
 class Estudos(db.Model):
     __tablename__ = 'estudos'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)    
@@ -10,9 +9,7 @@ class Estudos(db.Model):
     media_recebido = db.Column(db.Float, nullable=False)
     preco_pessoal = db.Column(db.Float, nullable=False)
 
-   
-
-    def __init__(self, ticket_escolhido,  usuario_id, media_rendimentos, media_recebido, preco_pessoal):
+    def __init__(self, ticket_escolhido, usuario_id, media_rendimentos, media_recebido, preco_pessoal):
         self.ticket_escolhido = ticket_escolhido        
         self.usuario_id = usuario_id
         self.media_rendimentos = media_rendimentos

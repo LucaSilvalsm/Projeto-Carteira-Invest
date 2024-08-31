@@ -6,4 +6,4 @@ from Model.Usuario import Usuario
 from Model.Ativos import Ativos
 from Model.Rendimentos import Rendimentos 
 from Model.Preco_teto import Preco_teto
-from Model.Estudo import Estudos
+from Model.Estudos import Estudos

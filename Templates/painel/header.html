@@ -34,8 +34,7 @@
             <h3> Ativos</h3>
             <a class="{{ 'sidebar-active' if current_route == 'adicionar_ativos' else '' }}" href="/painel/adicionar_ativos"><i class='bx bxs-report'></i> Adicionar Ativos</a>
             <a href="#"><i class='bx bxs-report'></i> Atualizar Ativos</a>
-            <a href="#"><i class='bx bxs-report'></i> Remover Ativos</a>
-            <a href="#"><i class='bx bxs-report'></i> Ver  Ativos por setor</a>
+            <a href="#"><i class='bx bxs-report'></i> Remover Ativos</a>           
             <a href="#"><i class='bx bxs-badge-dollar'></i> Adicionar Noticias</a>           
             <br/>
             <hr class="dash">
@@ -57,7 +56,7 @@
             <hr class="dash">
 
             <h3> Carteira para estuddos</h3>
-            <a href="/painel/carteira_estudos"><i class='bx bxs-report'></i> Adicionar Ativo para Estudos</a>
+            <a class="{{ 'sidebar-active' if current_route == 'carteira_estudos' else '' }}" href="/painel/carteira_estudos"><i class='bx bxs-report'></i> Adicionar Ativo para Estudos</a>
             <a href=""><i class='bx bxs-report'></i> Ver preço teto </a>
             <a href="#"><i class='bx bxs-report'></i> Mapa de Estudo</a>
                  

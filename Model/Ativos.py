@@ -12,7 +12,7 @@ class Ativos(db.Model):
     quantidade = db.Column(db.Integer, nullable=False)
     preco_medio = db.Column(db.Float, nullable=False)    
     
-    preco_pessoal = db.Column(db.Float, nullable=False)
+    
     
     # Dentro da classe Ativos
     
@@ -26,4 +26,4 @@ class Ativos(db.Model):
         self.usuario_id = usuario_id
         self.quantidade = quantidade
         self.preco_medio = preco_medio         
-        self.preco_pessoal = preco_pessoal
+        

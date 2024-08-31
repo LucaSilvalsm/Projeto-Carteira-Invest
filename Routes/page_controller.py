@@ -11,6 +11,7 @@ from flask import request,flash
 from Controller.AtivosController import AtivosController
 from Controller.RendimentosController import RendimentosController
 from Controller.PrecoController import PrecoController
+from Controller.EstudosController import EstudosController
 import locale
 
 
@@ -217,24 +218,38 @@ def calcular_preco():
     
     precoController = PrecoController()
     preco_teto_dados = precoController.calcular_preco_teto_por_usuario(usuario_id)
+    preco_positivo = precoController.calcular_preco_teto_positiva(usuario_id)
+    preco_negativo = precoController.calcular_preco_teto_negativo(usuario_id)
+    
+    try:
+        preco_teto_dados = precoController.calcular_preco_teto_por_usuario(usuario_id)
+    except Exception as e:
+        print(f"Erro ao calcular preço teto: {e}")
+        preco_teto_dados = {}
+        preco_positivo = {}
+        preco_negativo = {}
+   
+   
+    def formatar_dados(dados):
+        for ticket, info in dados.items():
+            info['cotacao_atual'] = f"R$ {info['cotacao_atual']:.2f}" if info['cotacao_atual'] is not None else 'N/A'
+            info['media_dividendos'] = f"{info['media_dividendos']:.1f}%"
+            info['media_recebido'] = f"R$ {info['media_recebido']:.2f}"
+            info['preco_pessoal'] = f"R$ {info['preco_pessoal']:.2f}"
+            info['margem_pessoal'] = f"{info['margem_pessoal']:.2f}%"
+            info['preco_teto_calculado'] = f"R$ {info['preco_teto_calculado']:.2f}"
+            
+            # Converter margem_de_seguranca para float e formatar como porcentagem
+            try:
+                margem = float(info['margem_de_seguranca'])
+                info['margem_de_seguranca'] = f"{margem:.2f}%"
+            except ValueError:
+                info['margem_de_seguranca'] = 'N/A'
 
     # Formatar os dados para o HTML
-    # Formatar os dados para o HTML
-    for ticket, dados in preco_teto_dados.items():
-        dados['cotacao_atual'] = f"R$ {dados['cotacao_atual']:.2f}" if dados['cotacao_atual'] != 'N/A' else 'N/A'
-        dados['media_dividendos'] = f"{dados['media_dividendos']:.1f}%"
-        dados['media_recebido'] = f"R$ {dados['media_recebido']:.2f}"
-        dados['preco_pessoal'] = f"R$ {dados['preco_pessoal']:.2f}"
-        dados['margem_pessoal'] = f"{dados['margem_pessoal']:.2f}%"
-        dados['preco_teto_calculado'] = f"R$ {dados['preco_teto_calculado']:.2f}"
-        
-        # Converter margem_de_seguranca para float e formatar como porcentagem
-        try:
-            margem = float(dados['margem_de_seguranca'])
-            dados['margem_de_seguranca'] = f"{margem:.2f}%"
-        except ValueError:
-            dados['margem_de_seguranca'] = 'N/A'
-
+    formatar_dados(preco_teto_dados)
+    formatar_dados(preco_positivo)
+    formatar_dados(preco_negativo)
 
     return render_template("./painel/calcular_preco.html",
                            ativos=ativos,
@@ -243,7 +258,10 @@ def calcular_preco():
                            valor_atualizado=f"R$ {valor_atualizado:,.2f}",
                            valor_total_investido=f"R$ {valor_total_investido:,.2f}",
                            current_route=current_route,
-                           preco_teto=preco_teto_dados)
+                           preco_teto=preco_teto_dados,
+                           preco_positivo=preco_positivo,
+                           preco_negativo=preco_negativo)
+
 
 @page_bp.route("/painel/carteira_estudos")
 @login_required
@@ -251,41 +269,60 @@ def carteira_estudos():
     current_route = 'carteira_estudos'
     ativosController = AtivosController()
     rendimentosController = RendimentosController()
+    estudosController = EstudosController()
     usuario_id = current_user.id
     
     dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
     valor_atualizado = ativosController.valor_investido_atualizado(usuario_id)
     valor_total_investido = ativosController.valor_total_investido(usuario_id)
     rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos
+    preco_teto_positiva = estudosController.calcular_preco_teto_positiva_por_usuario(usuario_id)
+    preco_teto_negativa = estudosController.calcular_preco_teto_negativa_por_usuario(usuario_id)
 
-    ativos = ativosController.buscar_ativos_por_usuario(usuario_id)
+    try:
+        acoes = estudosController.buscar_ativos_por_usuario(usuario_id)
+    except Exception as e:
+        print(f"Erro ao buscar ativos: {e}")
+        acoes = []  # Ou outro valor padrão
+
+    try:
+        preco_teto_dados = estudosController.calcular_preco_teto_por_usuario(usuario_id)
+    except Exception as e:
+        print(f"Erro ao calcular preço teto: {e}")
+        preco_teto_dados = {}
+        preco_teto_positiva = {}
+        preco_teto_negativa = {}
     
-    precoController = PrecoController()
-    preco_teto_dados = precoController.calcular_preco_teto_por_usuario(usuario_id)
-
     # Formatar os dados para o HTML
+    
+    def formatar_dados(dados):
+        for ticket, info in dados.items():
+            info['cotacao_atual'] = f"R$ {info['cotacao_atual']:.2f}" if info['cotacao_atual'] is not None else 'N/A'
+            info['media_dividendos'] = f"{info['media_dividendos']:.1f}%"
+            info['media_recebido'] = f"R$ {info['media_recebido']:.2f}"
+            info['preco_pessoal'] = f"R$ {info['preco_pessoal']:.2f}"
+            info['margem_pessoal'] = f"{info['margem_pessoal']:.2f}%"
+            info['preco_teto_calculado'] = f"R$ {info['preco_teto_calculado']:.2f}"
+            
+            # Converter margem_de_seguranca para float e formatar como porcentagem
+            try:
+                margem = float(info['margem_de_seguranca'])
+                info['margem_de_seguranca'] = f"{margem:.2f}%"
+            except ValueError:
+                info['margem_de_seguranca'] = 'N/A'
     # Formatar os dados para o HTML
-    for ticket, dados in preco_teto_dados.items():
-        dados['cotacao_atual'] = f"R$ {dados['cotacao_atual']:.2f}" if dados['cotacao_atual'] != 'N/A' else 'N/A'
-        dados['media_dividendos'] = f"{dados['media_dividendos']:.1f}%"
-        dados['media_recebido'] = f"R$ {dados['media_recebido']:.2f}"
-        dados['preco_pessoal'] = f"R$ {dados['preco_pessoal']:.2f}"
-        dados['margem_pessoal'] = f"{dados['margem_pessoal']:.2f}%"
-        dados['preco_teto_calculado'] = f"R$ {dados['preco_teto_calculado']:.2f}"
-        
-        # Converter margem_de_seguranca para float e formatar como porcentagem
-        try:
-            margem = float(dados['margem_de_seguranca'])
-            dados['margem_de_seguranca'] = f"{margem:.2f}%"
-        except ValueError:
-            dados['margem_de_seguranca'] = 'N/A'
+    formatar_dados(preco_teto_dados)
+    formatar_dados(preco_teto_positiva)
+    formatar_dados(preco_teto_negativa)
 
 
     return render_template("./painel/carteira_estudo.html",
-                           ativos=ativos,
+                           acoes=acoes,
                            dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
                            rentabilidade=f"R$ {rentabilidade:,.2f}",
                            valor_atualizado=f"R$ {valor_atualizado:,.2f}",
                            valor_total_investido=f"R$ {valor_total_investido:,.2f}",
                            current_route=current_route,
-                           preco_teto=preco_teto_dados)
+                           preco_teto=preco_teto_dados,
+                           preco_teto_positiva=preco_teto_positiva,
+                           preco_teto_negativa=preco_teto_negativa)

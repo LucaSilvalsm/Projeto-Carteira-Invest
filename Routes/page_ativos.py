@@ -33,7 +33,7 @@ def cadastrar():
 
         quantidade = int(request.form['quantidade'])
         preco_medio = float(request.form['preco'])  # Corrigido para 'preco'       
-        preco_pessoal = float(request.form['preco_pessoal'])
+        
 
         # Criando o objeto Ativos
         
@@ -45,7 +45,7 @@ def cadastrar():
             usuario_id=current_user.id,
             quantidade=quantidade,
             preco_medio=preco_medio,  # deve ser float           
-            preco_pessoal=preco_pessoal  # deve ser float
+            
         )
 
 

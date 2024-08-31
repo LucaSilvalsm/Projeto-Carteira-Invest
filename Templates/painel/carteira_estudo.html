@@ -53,7 +53,7 @@
     <div class="dashboard-layout">
         <div class="dashboard-content">
             <h2 class="dashboard-title">Monte uma carteira para Estudos</h2>
-            
+
             <div class="col-md-12">
                 <div class="col-md-12 planilha">
                     <table class="table">
@@ -115,93 +115,138 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Novo contêiner para os asides -->
-        <div class="aside-container">
-            <aside id="menu-aside">
-                <h3 id="tags-title">Menu</h3>
-                <ul id="tag-list">
-                    <li><a href="#" id="openModalBtn">Calcular o Preço Teto</a></li>
-                    <li><a href="#">Remover</a></li>
-                </ul>
-            </aside>
-            <div>
-                <br>
-            </div>
-            <aside id="nav-container">
-                <h3 id="tags-title">SETOR</h3>
-                <ul id="tag-list">
-                    <li><a href="#">AÇÃO</a></li>
-                    <li><a href="#">FIIs</a></li>
-                    <li><a href="#">ETF</a></li>
-                </ul>
-                <h3 id="categories-title">CATEGORIAS</h3>
-                <ul id="categories-list">
-                    <li><a href="#">Eletrico</a></li>
-                    <li><a href="#">Varejo</a></li>
-                    <li><a href="#">Bancos</a></li>
-                    <li><a href="#">Seguradoras</a></li>
-                    <li><a href="#">Fintechs</a></li>
-                    <li><a href="#">Saneamento</a></li>
-                    <li><a href="#">Saúde</a></li>
-                    <li><a href="#">Commodities</a></li>
-                </ul>
-            </aside>
+        <!-- Novo contêiner para os asides -->
+    <div class="aside-container">
+        <aside id="menu-aside">
+            <h3 id="tags-title">Menu</h3>
+            <ul id="tag-list">
+                <li><a href="#" id="openModalBtn">Adicionar para Estudos</a></li>
+                <li><a href="#" id="DeleteModalBtn">Remover</a></li>
+            </ul>
+        </aside>
+        <div>
+            <br>
+        </div>
+        <aside id="nav-container">
+            <h3 id="tags-title">Compra</h3>
+            <ul id="tag-list">
+                {% if preco_teto_positiva %}
+                    {% for ticket, dados in preco_teto_positiva.items() %}
+                    <li>{{ ticket }} : {{ dados.preco_teto_calculado }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Nenhum ativo positivo encontrado.</li>
+                {% endif %}
+            </ul>
+            <h3 id="categories-title">Acima do Preço Teto</h3>
+            <ul id="categories-list">
+                {% if preco_teto_negativa %}
+                    {% for ticket, dados in preco_teto_negativa.items() %}
+                    <li>{{ ticket }} : {{ dados.preco_teto_calculado }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Nenhum ativo negativo encontrado.</li>
+                {% endif %}
+            </ul>
+        </aside>
+    </div>
+
+    </div>
+    <!-- Modal para deletar ativo para estudo -->
+    <div id="DeleteModal" class="modal">
+        <div class="modal-content">
+            <span class="delete-btn">&times;</span>
+            <h2>Remover Ativo</h2>
+            <form id="deleteForm" action="{{ url_for('estudos_bp.deletar_estudo') }}" method="POST">
+                <div class="form-group">
+                    <label for="ticketAtivoDelete">Selecione o Ativo para Remover:</label>
+                    <select id="ticketAtivoDelete" name="ticket_escolhido" class="form-control">
+                        {% for acao in acoes %}
+                        <option value="{{ acao.ticket_escolhido }}">{{ acao.ticket_escolhido }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary card-btn">Remover</button>
+            </form>
         </div>
     </div>
-    <!-- Modal -->
+
+    <!-- Modal para adicionar ativo para estudo -->
     <div id="dividendoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Adicionar Dividendo</h2>
-            <form id="adicionarDividendoForm" action="{{ url_for('preco_bp.preco') }}" method="POST">
-
+            <form id="adicionarDividendoForm" action="{{ url_for('estudos_bp.carteira_estudo') }}" method="POST">
                 <div class="form-group">
-                    <label for="ticketAtivo">Selecione o Ativo:</label>
-
-                    <select id="ticketAtivo" name="ticket_ativo" class="form-control">
-                        <option value="">Selecione o Ativo</option>
-                        {% for ativo in ativos %}
-                        <option value="{{ ativo.ticket_ativo }}" name="{{ ativos.ticket_ativo }}">{{ ativo.ticket_ativo }}</option>
-                        {% endfor %}
-                    </select>
-
+                    <label for="ticketAtivo">Informe o ticket do ativo:</label>
+                    <input type="text" id="ticket_escolhido" name="ticket_escolhido" class="form-control"
+                        placeholder="Digite o ticker que deseja buscar no formato ex: TAEE11.SA: " />
                 </div>
                 <div class="form-group">
-                    <label for="media_dividendos">Média do Dividendos:</label>
-                    <input type="text" id="media_dividendos" name="media_dividendos" placeholder="Ex: 10% == 0.10. Ou  9% == 0.09 " required class="form-control">
+                    <label for="media_rendimentos">Média do Dividendos:</label>
+                    <input type="text" id="media_rendimentos" name="media_rendimentos"
+                        placeholder="Ex: 10% == 0.10. Ou  9% == 0.09 " required class="form-control">
                     <label for="media_recebido">Média do Dividendo Pago:</label>
-                    <input type="text" id="media_recebido" name="media_recebido" placeholder="Coloque no formato de 2.20 " required class="form-control">
-
+                    <input type="text" id="media_recebido" name="media_recebido"
+                        placeholder="Coloque no formato de 2.20 " required class="form-control">
                     <label for="preco_pessoal">Preço Teto Pessoal:</label>
-                    <input type="text" id="preco_pessoal" name="preco_pessoal" placeholder="Coloque no formato de 2.20 " required class="form-control">
+                    <input type="text" id="preco_pessoal" name="preco_pessoal" placeholder="Coloque no formato de 2.20 "
+                        required class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary card-btn">Adicionar</button>
             </form>
         </div>
     </div>
+
 </div> <!-- FIM Content -->
 <script>
-    // Obtém os elementos
-    var modal = document.getElementById("dividendoModal");
-    var btn = document.getElementById("openModalBtn");
-    var span = document.getElementsByClassName("close-btn")[0];
+    // Modal para adicionar dividendo
+    var modalAdicionar = document.getElementById("dividendoModal");
+    var btnAdicionar = document.getElementById("openModalBtn");
+    var spanAdicionar = document.getElementsByClassName("close-btn")[0];
 
     // Quando o usuário clicar no botão, abre o modal
-    btn.onclick = function () {
-        modal.style.display = "block";
+    btnAdicionar.onclick = function () {
+        modalAdicionar.style.display = "block";
     }
 
     // Quando o usuário clicar no 'x', fecha o modal
-    span.onclick = function () {
-        modal.style.display = "none";
+    spanAdicionar.onclick = function () {
+        modalAdicionar.style.display = "none";
     }
 
     // Quando o usuário clicar fora do modal, fecha o modal
     window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == modalAdicionar) {
+            modalAdicionar.style.display = "none";
         }
     }
 </script>
+
+<script>
+    // Modal para deletar ativo
+    var modalDelete = document.getElementById("DeleteModal");
+    var btnDelete = document.getElementById("DeleteModalBtn");
+    var spanDelete = document.getElementsByClassName("delete-btn")[0];
+
+    // Quando o usuário clicar no botão, abre o modal
+    btnDelete.onclick = function () {
+        modalDelete.style.display = "block";
+    }
+
+    // Quando o usuário clicar no 'x', fecha o modal
+    spanDelete.onclick = function () {
+        modalDelete.style.display = "none";
+    }
+
+    // Quando o usuário clicar fora do modal, fecha o modal
+    window.onclick = function (event) {
+        if (event.target == modalDelete) {
+            modalDelete.style.display = "none";
+        }
+    }
+</script>
+
 {% endblock %}
