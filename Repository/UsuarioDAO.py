@@ -34,6 +34,13 @@ class UsuarioDAO:
             raise e
         finally:
             session.close()
+            
+    def obter_nome_usuario(self,usuario_id):
+        session = self.Session()
+        usuario = session.query(Usuario).filter(Usuario.id == usuario_id).first()
+        if usuario:
+            return usuario.nome + " " + usuario.sobrenome
+        return 'desconhecido'
     
     def obter_por_id(self, id):
         session = self.Session()

@@ -20,12 +20,13 @@ Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo
 - Preço Teto Pessoal: Definir e acompanhar preços-alvo pessoais para os ativos.
 - Preço Teto: Monitorar os preços dos ativos em relação aos tetos de mercado.
 - Páginas Dedicadas: Criar páginas específicas para visualizações detalhadas de diferentes tipos de ativos.
-
-### Em Desenvolvimento
-
-  
 - Relatorios 
 
+### Em Desenvolvimento Futuro
+
+- Usar uma api para pegar os dados de uma forma mais leve
+- Integração com a Google, Facebook e a B3 
+  
 ##
 ### Stack de Tecnologia usada
 
@@ -41,7 +42,8 @@ Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo
 - `FLASK` - Framework para construção da aplicação web.
 - `PANDAS` - Biblioteca para manipulação e análise de dados.
 - `SQLALCHEMY` -  ORM para interação com o banco de dados.
--  `DASH` - Usada para criar gráficos dinâmicos e interativos.
+- `DASH` - Usada para criar gráficos dinâmicos e interativos.
+- `kaleido`
 
 ##
 ### Considerações Futuras

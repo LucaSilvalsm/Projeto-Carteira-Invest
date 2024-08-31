@@ -7,7 +7,9 @@ from sqlalchemy.orm import sessionmaker
 from flask_login import current_user,login_required
 from sqlalchemy import create_engine
 from flask import request,flash
-
+from flask import send_file, current_app
+import os
+from export_data import exportar_dados_para_excel
 from Controller.AtivosController import AtivosController
 from Controller.RendimentosController import RendimentosController
 from Controller.PrecoController import PrecoController
@@ -128,6 +130,8 @@ def consolidado():
     
     # Calcula os dividendos recebidos
     dividendo_recebidos = rendimentosController.soma_dividendos_totais(usuario_id)
+    ativos_valorizados = ativosController.ativos_valorizados(usuario_id)
+    ativos_desvalorizados = ativosController.ativos_desvalorizados(usuario_id)
 
     
     # Calcula a rentabilidade (valor atualizado - valor total investido)
@@ -146,7 +150,9 @@ def consolidado():
         valor_total_investido=f"R$ {valor_total_investido:,.2f}",
         dividendo_recebidos=f"R$ {dividendo_recebidos:,.2f}",
         valor_atualizado=f"R$ {valor_atualizado:,.2f}",
-        rentabilidade_real=f"{rentabilidade_real:.2f}%"
+        rentabilidade_real=f"{rentabilidade_real:.2f}%",
+        ativos_valorizados=ativos_valorizados,
+        ativos_desvalorizados=ativos_desvalorizados
     )
 
 
@@ -166,6 +172,8 @@ def dividendos():
     valor_total_investido = ativosController.valor_total_investido(usuario_id)
     
     rentabilidade = (valor_atualizado - valor_total_investido) + dividendo_recebidos 
+    ativos_valorizados = ativosController.ativos_valorizados(usuario_id)
+    ativos_desvalorizados = ativosController.ativos_desvalorizados(usuario_id)
 
     ativos = ativosController.buscar_ativos_por_usuario(usuario_id)
     return render_template("./painel/dividendos.html",ativos=ativos,
@@ -173,7 +181,9 @@ def dividendos():
                             rentabilidade=f"R$ {rentabilidade:,.2f}",
                             valor_atualizado=f"R$ {valor_atualizado:,.2f}",
                             valor_total_investido=f"R$ {valor_total_investido:,.2f}",
-                            current_route=current_route)
+                            current_route=current_route,
+                            ativos_valorizados=ativos_valorizados,
+                            ativos_desvalorizados=ativos_desvalorizados)
     
     
 @page_bp.route("/painel/preco_teto")
@@ -326,3 +336,23 @@ def carteira_estudos():
                            preco_teto=preco_teto_dados,
                            preco_teto_positiva=preco_teto_positiva,
                            preco_teto_negativa=preco_teto_negativa)
+    
+
+
+@page_bp.route("/painel/relatorio")
+@login_required
+def relatorio():
+    usuario_id = current_user.id
+    if not usuario_id:
+        return "Parâmetro 'usuario_id' é necessário.", 400
+
+    try:
+        # Converta usuario_id para int se necessário
+        usuario_id = int(usuario_id)
+        arquivo_excel =  exportar_dados_para_excel(usuario_id)
+        
+        # Enviar o arquivo Excel para o usuário
+        caminho_arquivo = os.path.join(current_app.root_path, arquivo_excel)
+        return send_file(caminho_arquivo, as_attachment=True)
+    except Exception as e:
+        return str(e)

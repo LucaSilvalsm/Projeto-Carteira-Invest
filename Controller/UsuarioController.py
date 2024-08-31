@@ -24,3 +24,6 @@ class UsuarioController:
     
     def buscar_por_cpf(self, cpf):
         return self.dao.obter_por_cpf(cpf)
+    
+    def obter_nome_usuario(self,usuario_id):
+        return self.dao.obter_nome_usuario(usuario_id)
