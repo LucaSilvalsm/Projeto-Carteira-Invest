@@ -61,3 +61,14 @@ Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo
 - Execute a aplicação - `python app.py`
 
 
+### Pagina Inicial: 
+![127 0 0 1_5000_painel](https://github.com/user-attachments/assets/774373d6-2eac-45c6-bb57-a5e1e3edeb92)
+
+### Pagina do Dividendos
+![127 0 0 1_5000_painel_dividendos](https://github.com/user-attachments/assets/dbf29025-dbec-4571-8971-ec0e51f7cb47)
+
+### Preço Teto da Carteira
+![127 0 0 1_5000_painel_calcular_preco](https://github.com/user-attachments/assets/720485fa-a594-4239-a0ec-6ecce54129d7)
+
+
+
