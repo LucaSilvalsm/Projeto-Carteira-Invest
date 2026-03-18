@@ -72,15 +72,20 @@ def atualizar_grafico_categoria(id):  # Carteira por tipo de ativos
 # Função para atualizar o gráfico de ativos
 def atualizar_grafico_ativos(id):  # Carteira consolidada
     ativos_controller = AtivosController()
-    usuario_id = current_user.id  # Pega o ID do usuário atual
+    usuario_id = current_user.id  
     dados = ativos_controller.todos_ativos_por_usuario(usuario_id)
 
     tickets = list(dados.keys())
     valores = list(dados.values())
 
-    # Configurando o gráfico de pizza
+    # 🔹 Labels com valor investido
+    labels_formatados = [
+        f"{ticket} — R${valor:,.2f}"
+        for ticket, valor in zip(tickets, valores)
+    ]
+
     fig = go.Figure(data=[go.Pie(
-        labels=tickets,
+        labels=labels_formatados,   # <-- legenda atualizada
         values=valores,
         textinfo='label+percent',
         insidetextorientation='radial',
@@ -90,15 +95,16 @@ def atualizar_grafico_ativos(id):  # Carteira consolidada
     )])
 
     fig.update_layout(
-        font=dict(size=11, color='black', weight='bold'),        
+        font=dict(size=11, color='black', weight='bold'),
         margin=dict(t=20, b=20),
         showlegend=True,
-        plot_bgcolor='rgba(0, 0, 0, 0)',
-        paper_bgcolor='rgba(0, 0, 0, 0)',        
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
         height=400,
     )
-    
+
     return fig
+
 
 # Função para atualizar o gráfico de cotações
 def atualizar_grafico_ativos_cotacao(id):  # Cotação atualizada dos ativos
@@ -109,9 +115,12 @@ def atualizar_grafico_ativos_cotacao(id):  # Cotação atualizada dos ativos
     tickets = list(dados.keys())
     valores = list(dados.values())
 
+    # Criando labels detalhados para a legenda
+    legendas = [f"{ticket} — R${valor:,.2f}" for ticket, valor in zip(tickets, valores)]
+
     # Configurando o gráfico de pizza
     fig = go.Figure(data=[go.Pie(
-        labels=tickets,
+        labels=legendas,   # <-- Agora aparece (TICKET + VALOR)
         values=valores,
         textinfo='label+percent',
         insidetextorientation='radial',
@@ -119,7 +128,7 @@ def atualizar_grafico_ativos_cotacao(id):  # Cotação atualizada dos ativos
         hovertemplate='%{label}<br>R$%{value:,.2f}<br>%{percent}<extra></extra>',
         hoverlabel=dict(namelength=-1)
     )])
-
+    
     fig.update_layout(
         font=dict(size=11, color='black', weight='bold'),        
         margin=dict(t=20, b=20),
@@ -130,6 +139,7 @@ def atualizar_grafico_ativos_cotacao(id):  # Cotação atualizada dos ativos
     )
     
     return fig
+
 
 # Função para gerar o gráfico por setor na categoria "Ação"
 def grafico_setor(id):  # Gráfico de setores da categoria "Ação"

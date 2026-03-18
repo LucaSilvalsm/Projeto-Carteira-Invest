@@ -1,34 +1,36 @@
-## Projeto-Carteira-Invest
+## 📊 Projeto Carteira Invest
 
-Um projeto em Python que simula uma carteira de investimento, acompanhando diversos ativos e suas cotações.
+
+Aplicação desenvolvida em Python para simulação e gestão de uma carteira de investimentos, permitindo o acompanhamento de ativos e suas cotações atualizadas.
 
 ## Ideia do Projeto
 
-Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo funcionalidades para monitorar e gerenciar diversos ativos financeiros, incluindo ações, FIIs, ETFs, renda fixa e criptomoedas.
+O objetivo do projeto é simular uma carteira de investimentos, oferecendo funcionalidades para monitorar e gerenciar diversos ativos financeiros, incluindo ações, FIIs, ETFs, renda fixa e criptomoedas.
 
-### Funcionalidades Concluídas: 
+### ⚙️ Funcionalidades Concluídas: 
   
-- Acompanhamento de Dividendos: Monitore e gerencie os pagamentos de dividendos entre os ativos.
-- Gráficos Interativos: Visualize os dados da carteira com gráficos dinâmicos.
-- Separação por Ativos: Categorize os ativos por tipo (FIIs, Ações, ETFs, Renda Fixa, Crypto).
-- Dashboard: Painel centralizado exibindo métricas-chave da carteira.
-- Card: Pequenos card da carteira que informa se o ativo esta dando prejuizo ou lucro  na carteira
-- Comparativos: Pelos dashboards da carteira o usuario consegue comparar os ativos com o seu P.M com a carteira atualizada pela cotação
-- Valorização: Acompanhar o valor de mercado atual da carteira.
-- Rentabilidade: Calcular e exibir a rentabilidade dos ativos.
-- Histórico de Dividendos: Adicionar e visualizar o histórico de dividendos.
-- Preço Teto Pessoal: Definir e acompanhar preços-alvo pessoais para os ativos.
-- Preço Teto: Monitorar os preços dos ativos em relação aos tetos de mercado.
-- Páginas Dedicadas: Criar páginas específicas para visualizações detalhadas de diferentes tipos de ativos.
-- Relatorios 
+- 📈 Acompanhamento de dividendos: Monitoramento e gestão dos pagamentos de dividendos dos ativos
+- 📊 Gráficos interativos: Visualização de dados da carteira com gráficos dinâmicos
+- 🗂️ Organização por ativos: Categorização por tipo (FIIs, Ações, ETFs, Renda Fixa e Criptomoedas)
+- 📌 Dashboard: Painel centralizado com métricas-chave da carteira
+- 💰 Status dos ativos: Indicação de lucro ou prejuízo com base na cotação atual
+- 📉 Comparativos: Comparação entre preço médio e valor de mercado atualizado
+- 📈 Valorização: Acompanhamento do valor total da carteira em tempo real (ou próximo disso)
+- 📊 Rentabilidade: Cálculo automático da rentabilidade dos ativos
+- 🧾 Histórico de dividendos: Registro e consulta de pagamentos recebidos
+- 🎯 Preço teto pessoal: Definição de preços-alvo personalizados
+- 📌 Preço teto de mercado: Monitoramento com base em parâmetros definidos
+- 📄 Páginas dedicadas: Visualização detalhada por tipo de ativo
+- 📤 Relatórios: Geração de relatórios da carteira
+- 📡 Cotação em tempo real: Acompanhamento das cotações dos ativos em tempo real
+  
+### 🚧 Em Desenvolvimento Futuro
 
-### Em Desenvolvimento Futuro
-
-- Usar uma api para pegar os dados de uma forma mais leve
-- Integração com a Google, Facebook e a B3 
+- Otimização da coleta de dados via APIs (melhor performance)
+- Integração com novas plataformas e serviços (B3, Google, etc.)
   
 ##
-### Stack de Tecnologia usada
+### 🧠 Stack de Tecnologia usada
 
 - `Python` -  Linguagem de programação principal usada.
 - `PostgreSQL` - Sistema de banco de dados usado para armazenar os dados da carteira.
@@ -46,7 +48,7 @@ Este projeto tem como objetivo simular uma carteira de investimentos, oferecendo
 - `kaleido`
 
 ##
-### Considerações Futuras
+### 🔧 Considerações Futuras
 
 - `MATPLOTLIB` & `SEABORN` - Bibliotecas potenciais para visualizações adicionais de dados.
 - `COTAÇÃO EM TEMPO REAL` -  Implementar a funcionalidade de cotações em tempo real ou com atraso máximo de um dia.
