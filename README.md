@@ -1,6 +1,6 @@
-## 📊 Projeto Carteira Invest
+## 📊 Projeto Carteira Invest 
 
-
+Sistema de gestão de carteira de investimentos com integração de APIs financeiras e visualização de dados em tempo real.
 Aplicação desenvolvida em Python para simulação e gestão de uma carteira de investimentos, permitindo o acompanhamento de ativos e suas cotações atualizadas.
 
 ## Ideia do Projeto
